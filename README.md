@@ -176,7 +176,7 @@ pandas.DataFrame.info method prints information about a DataFrame including the 
 independent variables are strings; they need to be converted to numeric values
     
 ```
-</td></tr></table>
+    </td></tr></table>
 
 
 #### 6 C  c - i. Convert Dtypes
