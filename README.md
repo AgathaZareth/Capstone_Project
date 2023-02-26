@@ -188,6 +188,15 @@ pandas.DataFrame.info method prints information about a DataFrame including the 
 </td></tr></table>
 
 
+'''
+
+'Check info' notes:
+There are no missing values, however, the above shows all the independent 
+variables are strings; they need to be converted to numeric values.
+
+'''
+
+
 #### 6 C  c - i. Convert Dtypes
 
 I do a blanket conversion of the entire df since all features, independent and dependent, need to be float64.
@@ -199,6 +208,15 @@ I do a blanket conversion of the entire df since all features, independent and d
 
 <table><tr><td><b>Success:</b> All Dtypes are now floats.
 </td></tr></table>
+
+
+'''
+
+Success:
+All Dtypes are now floats.
+
+'''
+
 
 ### 6 C - d. Distribution of values
 An important consideration when using multiple predictors in any machine learning model is the scale of these features. 
