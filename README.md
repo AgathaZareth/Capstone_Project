@@ -188,13 +188,13 @@ pandas.DataFrame.info method prints information about a DataFrame including the 
 </td></tr></table>
 
 
-'''
+```
 
 'Check info' notes:
 There are no missing values, however, the above shows all the independent 
 variables are strings; they need to be converted to numeric values.
 
-'''
+```
 
 
 #### 6 C  c - i. Convert Dtypes
@@ -210,14 +210,36 @@ I do a blanket conversion of the entire df since all features, independent and d
 </td></tr></table>
 
 
-'''
+```
 
 Success:
 All Dtypes are now floats.
 
-'''
+```
 
 
 ### 6 C - d. Distribution of values
 An important consideration when using multiple predictors in any machine learning model is the scale of these features. 
+
+
+#### 6 C d - i. Check describe
+
+I will use pandas.DataFrame.describe to generate descriptive statistics. Descriptive statistics include those that summarize the central tendency, dispersion and shape of a dataset’s distribution, excluding NaN values.
+
+- The count of not-empty values
+- The average (mean) value
+- The standard deviation
+- the minimum value
+- The 25% percentile
+- The 50% percentile
+- The 75% percentile
+- the maximum value
+
+I will transpose it for easier viewing.
+
+<p align="center" width="100%">
+<img src="/images/ss_examples/raw_describe.png" alt="raw data dot describe">
+</p>
+
+
 
