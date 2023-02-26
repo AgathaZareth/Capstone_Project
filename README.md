@@ -164,8 +164,8 @@ pandas.DataFrame.info method prints information about a DataFrame including the 
 <img src="/images/ss_examples/raw_df_info.png" alt="raw data dot info printout">
 </p>
 
-<table align="center" width="100%"><tr><td><b>'Check info' notes:</b> There are no missing values, however, the above shows all the independent variables are strings; they need to be converted to numeric values
-</td></tr></table>
+<table><tr><td><table><tr><td><b>'Check info' notes:</b> There are no missing values, however, the above shows all the independent variables are strings; they need to be converted to numeric values
+</td></tr></table></td></tr></table>
 
 
 #### 6 C  c - i. Convert Dtypes
@@ -175,7 +175,7 @@ I do a blanket conversion of the entire df since all features, independent and d
 </p>
 
 
-<table align="center" width="100%"><tr><td><b>Success:</b> All Dtypes are now floats.
+<table><tr><td><b>Success:</b> All Dtypes are now floats.
 </td></tr></table>
 
 ### 6 C - d. Distribution of values
