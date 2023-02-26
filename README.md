@@ -160,7 +160,11 @@ There are zero null or missing values in this df.
 
 ### 6 C - c. Check info
 pandas.DataFrame.info method prints information about a DataFrame including the index dtype and columns, non-null values and memory usage.
+![raw data dot info printout](/images/ss_examples/raw_df_info.png)
+![raw data dot info printout](./images/ss_examples/raw_df_info.png)
 ![raw data dot info printout](../images/ss_examples/raw_df_info.png)
+![raw data dot info printout](/Capstone_Project/images/ss_examples/raw_df_info.png)
+![raw data dot info printout](../Capstone_Project/images/ss_examples/raw_df_info.png)
 
 <img src="/Users/me/Development/FlatironProjects/phase_5/Capstone_Project/images/ss_examples/raw_df_info.png" alt="raw data dot info printout">
 
