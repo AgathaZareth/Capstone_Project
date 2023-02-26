@@ -168,6 +168,8 @@ pandas.DataFrame.info method prints information about a DataFrame including the 
 ![6](attachment:raw_df_info.png)
 ![7](../images/raw_df_info.png)
 
+
+
 <p align="center" width="100%">
 
 <img src="/images/ss_examples/raw_df_info.png" alt="raw data dot info printout">
