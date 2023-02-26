@@ -1,4 +1,10 @@
-# Drafting New Talent for SF Giants 2023 Season
+%%html
+<style>
+.rendered_html center {text-align: center;}
+</style>
+
+    
+# <center>Drafting New Talent for SF Giants 2023 Season</center>
 ## Linear Regression of MLB teams' percentage of wins from the last 5 regular seasons
 
 
@@ -13,7 +19,7 @@ The insight provided by the inferential aspects will guide my recruitment recomm
 
 
 # 2. Business Understanding
-<p><img src=https://i.pinimg.com/736x/0e/68/ed/0e68eda6243faa5f754b1cfb2b04846d--giants-sf-giants-baseball.jpg width="125", alt="SF Giants logo" style="float: left;vertical-align:middle;margin:0px 15px">San Francisco Giants had an unremarkable 2022 season. This year SF Giants General Manager (Pete Putila), SF Giants Senior Director of Player Development (Kyle Haines), and Senior Director of Amatuer Scouting (Micheal Holmes) are looking to invest a huge portion of their efforts into recruiting from college and minor league levels. Beyond looking at an individual player's potential, they want predictions on the collective cohesiveness of a team and how the team as a whole will perform throughout the season. The most obvious metric to evaluate this is a teams percentage of wins during a regular season. </p>
+<p><img src=https://i.pinimg.com/736x/0e/68/ed/0e68eda6243faa5f754b1cfb2b04846d--giants-sf-giants-baseball.jpg width="125", alt="SF Giants logo" style="float: left;vertical-align:middle;margin:0px 0px">San Francisco Giants had an unremarkable 2022 season. This year SF Giants General Manager (Pete Putila), SF Giants Senior Director of Player Development (Kyle Haines), and Senior Director of Amatuer Scouting (Micheal Holmes) are looking to invest a huge portion of their efforts into recruiting from college and minor league levels. Beyond looking at an individual player's potential, they want predictions on the collective cohesiveness of a team and how the team as a whole will perform throughout the season. The most obvious metric to evaluate this is a teams percentage of wins during a regular season. </p>
 
 
 # 3. Overview of additional [notebooks](https://github.com/AgathaZareth/Capstone_Project/tree/main/notebooks) contained in this repository
@@ -33,7 +39,7 @@ can be found in the [MiLB_table notebook](https://github.com/AgathaZareth/Capsto
 #### 3 A a - iii.   MLB Player Stats
 can be found in the [MLB_5_seasons notebook](https://github.com/AgathaZareth/Capstone_Project/blob/main/notebooks/MLB_5_seasons.ipynb). From [MLB.com](https://www.mlb.com)  I swapped out years and page numbers in url's to get players hitting stats for 5 seasons. 
 
-#### <center> The above 3 mentioned player stats DF's contain the following data</center> 
+#### <center>The above 3 mentioned player stats DF's contain the following data</center> 
 
 | Column     | Description   |
 |------------|:--------------|
@@ -157,7 +163,9 @@ There are zero null or missing values in this df.
 
 ### 6 C - c. Check info
 pandas.DataFrame.info method prints information about a DataFrame including the index dtype and columns, non-null values and memory usage.
-<img src="../images/ss_examples/raw_df.info.png" alt="raw data dot info printout" />
+![raw data dot info printout](../images/ss_examples/raw_df.info.png)
+
+<img src="/Users/me/Development/FlatironProjects/phase_5/Capstone_Project/images/ss_examples/raw_df.info.png" alt="raw data dot info printout" />
 
 <div class="alert alert-block alert-info">
 <b>'Check info' notes:</b> There are no missing values, however, the above shows all the independent variables are strings; they need to be converted to numeric values. </div>
@@ -174,3 +182,7 @@ I do a blanket conversion of the entire df since all features, independent and d
 ### 6 C - d. Distribution of values
 An important consideration when using multiple predictors in any machine learning model is the scale of these features. 
 
+    
+    
+</body>
+</html>
