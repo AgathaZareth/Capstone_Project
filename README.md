@@ -168,8 +168,17 @@ pandas.DataFrame.info method prints information about a DataFrame including the 
 <b>'Check info' notes:</b> There are no missing values, however, the above shows all the independent variables are strings; they need to be converted to numeric values. </div>
 
 
-<table bgcolor="#99CCFF"><tr><td> There are no missing values, however, the above shows all the independent variables are strings; they need to be converted to numeric values</td></tr></table>
+<table bgcolor="#99CCFF"><tr><td><b>'Check info' notes:</b>  There are no missing values, however, the above shows all the independent variables are strings; they need to be converted to numeric values</td></tr></table>
 
+<table bgcolor="#99CCFF"><tr><td><b>'Check info' notes:</b>  There are no missing values, however, the above shows all the independent variables are strings; they need to be converted to numeric values</td></tr></table>
+
+'''
+**'Check info' notes:** There are no missing values, however, the above shows all the independent variables are strings; they need to be converted to numeric values
+'''
+
+```
+**'Check info' notes:** There are no missing values, however, the above shows all the independent variables are strings; they need to be converted to numeric values
+```
 
 #### 6 C  c - i. Convert Dtypes
 I do a blanket conversion of the entire df since all features, independent and dependent, need to be float64.
