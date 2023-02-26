@@ -14,7 +14,9 @@ The insight provided by the inferential aspects will guide my recruitment recomm
 
 # 2. Business Understanding
 <p align="left" width="100%"><img align="left" width="25%" src=https://i.pinimg.com/736x/0e/68/ed/0e68eda6243faa5f754b1cfb2b04846d--giants-sf-giants-baseball.jpg width="125", alt="SF Giants logo">
-San Francisco Giants had an unremarkable 2022 season. This year SF Giants General Manager (Pete Putila), SF Giants Senior Director of Player Development (Kyle Haines), and Senior Director of Amatuer Scouting (Micheal Holmes) are looking to invest a huge portion of their efforts into recruiting from college and minor league levels. Beyond looking at an individual player's potential, they want predictions on the collective cohesiveness of a team and how the team as a whole will perform throughout the season. The most obvious metric to evaluate this is a teams percentage of wins during a regular season. </p>
+San Francisco Giants had an unremarkable 2022 season. This year SF Giants General Manager (Pete Putila), SF Giants Senior Director of Player Development (Kyle Haines), and Senior Director of Amatuer Scouting (Micheal Holmes) are looking to invest a huge portion of their efforts into recruiting from college and minor league levels. Beyond looking at an individual player's potential, they want predictions on the collective cohesiveness of a team and how the team as a whole will perform throughout the season. The most obvious metric to evaluate this is a teams percentage of wins during a regular season. 
+
+</p>
 
 
 # 3. Overview of additional notebooks contained in this repository
@@ -158,9 +160,9 @@ There are zero null or missing values in this df.
 
 ### 6 C - c. Check info
 pandas.DataFrame.info method prints information about a DataFrame including the index dtype and columns, non-null values and memory usage.
-![raw data dot info printout](../images/ss_examples/raw_df.info.png)
+![raw data dot info printout](../images/ss_examples/raw_df_info.png)
 
-<img src="/Users/me/Development/FlatironProjects/phase_5/Capstone_Project/images/ss_examples/raw_df.info.png" alt="raw data dot info printout" />
+<img src="/Users/me/Development/FlatironProjects/phase_5/Capstone_Project/images/ss_examples/raw_df_info.png" alt="raw data dot info printout">
 
 <div class="alert alert-block alert-info">
 <b>'Check info' notes:</b> There are no missing values, however, the above shows all the independent variables are strings; they need to be converted to numeric values. </div>
