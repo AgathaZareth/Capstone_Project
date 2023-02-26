@@ -1,4 +1,6 @@
-# <center>Drafting New Talent for SF Giants 2023 Season</center>
+<h1 align="center" width="100%">
+Drafting New Talent for SF Giants 2023 Season
+</h1>
 ## Linear Regression of MLB teams' percentage of wins from the last 5 regular seasons
 
 
@@ -36,7 +38,7 @@ can be found in the [MiLB_table notebook](https://github.com/AgathaZareth/Capsto
 #### 3 A a - iii.   MLB Player Stats
 can be found in the [MLB_5_seasons notebook](https://github.com/AgathaZareth/Capstone_Project/blob/main/notebooks/MLB_5_seasons.ipynb). From [MLB.com](https://www.mlb.com)  I swapped out years and page numbers in url's to get players hitting stats for 5 seasons. 
 
-#### <center>The above 3 mentioned player stats DF's contain the following data</center> 
+<p align="center" width="100%">The above 3 mentioned player stats DF's contain the following data</p> 
 
 | Column     | Description   |
 |------------|:--------------|
@@ -164,8 +166,8 @@ pandas.DataFrame.info method prints information about a DataFrame including the 
 <img src="/images/ss_examples/raw_df_info.png" alt="raw data dot info printout">
 </p>
 
-<table><table><tr><td><b>'Check info' notes:</b> There are no missing values, however, the above shows all the independent variables are strings; they need to be converted to numeric values
-</td></tr></table></table>
+<table><tr><td><b>'Check info' notes:</b> There are no missing values, however, the above shows all the independent variables are strings; they need to be converted to numeric values
+</td></tr></table>
 
 
 #### 6 C  c - i. Convert Dtypes
