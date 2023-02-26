@@ -13,7 +13,7 @@ The insight provided by the inferential aspects will guide my recruitment recomm
 
 
 # 2. Business Understanding
-<p align="left" width="100%"><img align="left" width="20%" src=https://i.pinimg.com/736x/0e/68/ed/0e68eda6243faa5f754b1cfb2b04846d--giants-sf-giants-baseball.jpg width="125", alt="SF Giants logo">
+<p align="left" width="100%"><img align="left" width="22%" src=https://i.pinimg.com/736x/0e/68/ed/0e68eda6243faa5f754b1cfb2b04846d--giants-sf-giants-baseball.jpg width="125", alt="SF Giants logo">
 San Francisco Giants had an unremarkable 2022 season. This year SF Giants General Manager (Pete Putila), SF Giants Senior Director of Player Development (Kyle Haines), and Senior Director of Amatuer Scouting (Micheal Holmes) are looking to invest a huge portion of their efforts into recruiting from college and minor league levels. Beyond looking at an individual player's potential, they want predictions on the collective cohesiveness of a team and how the team as a whole will perform throughout the season. The most obvious metric to evaluate this is a teams percentage of wins during a regular season. 
 
 </p>
@@ -160,13 +160,16 @@ There are zero null or missing values in this df.
 
 ### 6 C - c. Check info
 pandas.DataFrame.info method prints information about a DataFrame including the index dtype and columns, non-null values and memory usage.
-![raw data dot info printout](/images/ss_examples/raw_df_info.png)
-![raw data dot info printout](./images/ss_examples/raw_df_info.png)
-![raw data dot info printout](../images/ss_examples/raw_df_info.png)
-![raw data dot info printout](/Capstone_Project/images/ss_examples/raw_df_info.png)
-![raw data dot info printout](../Capstone_Project/images/ss_examples/raw_df_info.png)
+![1](/images/ss_examples/raw_df_info.png)
+![2](./images/ss_examples/raw_df_info.png)
+![3](../images/ss_examples/raw_df_info.png)
+![4](/Capstone_Project/images/ss_examples/raw_df_info.png)
+![5](../Capstone_Project/images/ss_examples/raw_df_info.png)
+![6](attachment:raw_df_info.png)
+![7](../images/raw_df_info.png)
 
 <p align="center" width="100%">
+
 <img src="/images/ss_examples/raw_df_info.png" alt="raw data dot info printout">
 <img src="./images/ss_examples/raw_df_info.png" alt="raw data dot info printout">
 <img src="../images/ss_examples/raw_df_info.png" alt="raw data dot info printout"></p>
