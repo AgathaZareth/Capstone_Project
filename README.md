@@ -160,24 +160,15 @@ There are zero null or missing values in this df.
 
 ### 6 C - c. Check info
 pandas.DataFrame.info method prints information about a DataFrame including the index dtype and columns, non-null values and memory usage.
-![1](/images/ss_examples/raw_df_info.png)
-![2](./images/ss_examples/raw_df_info.png)
-![3](../images/ss_examples/raw_df_info.png)
-![4](/Capstone_Project/images/ss_examples/raw_df_info.png)
-![5](../Capstone_Project/images/ss_examples/raw_df_info.png)
-![6](attachment:raw_df_info.png)
-![7](../images/raw_df_info.png)
-
-
-
 <p align="center" width="100%">
-
 <img src="/images/ss_examples/raw_df_info.png" alt="raw data dot info printout">
-<img src="./images/ss_examples/raw_df_info.png" alt="raw data dot info printout">
-<img src="../images/ss_examples/raw_df_info.png" alt="raw data dot info printout"></p>
+</p>
 
-<div class="alert alert-block alert-info">
+<div style="background-color:blue">
 <b>'Check info' notes:</b> There are no missing values, however, the above shows all the independent variables are strings; they need to be converted to numeric values. </div>
+
+
+<table bgcolor="#99CCFF"><tr><td> There are no missing values, however, the above shows all the independent variables are strings; they need to be converted to numeric values</td></tr></table>
 
 
 #### 6 C  c - i. Convert Dtypes
