@@ -1,7 +1,8 @@
 <h1 align="center" width="100%">
 Drafting New Talent for SF Giants 2023 Season
 </h1>
-## Linear Regression of MLB teams' percentage of wins from the last 5 regular seasons
+
+<h2>Linear Regression of MLB teams' percentage of wins from the last 5 regular seasons</h2>
 
 
 
@@ -9,12 +10,14 @@ Drafting New Talent for SF Giants 2023 Season
 
 
 # 1. Introduction
+
 Intuitively, it makes sense that the performance of the team as a whole is more important than individual players themselves, we are all familiar with the idiom "greater than the sum of its parts" and baseball teams are no exception. This notebook will provide an understanding of how a teams cumulative statistics influence the percentage of wins in their regular season games. With this inferentail understanding there is also predictive capabilities, that is to say, the be able to take in the statistics of a team, then to *predict* that teams win percentage for their regular season. The effectiveness of this predictive model will be measured by how well it predicts win percentages in a test set; a set that I have the answers for but the model does not. 
 
 The insight provided by the inferential aspects will guide my recruitment recommendations and the predictive ability will test the new rosters potential win percentage. 
 
 
 # 2. Business Understanding
+
 <p align="left" width="100%"><img align="left" width="22%" src=https://i.pinimg.com/736x/0e/68/ed/0e68eda6243faa5f754b1cfb2b04846d--giants-sf-giants-baseball.jpg width="125", alt="SF Giants logo">
 San Francisco Giants had an unremarkable 2022 season. This year SF Giants General Manager (Pete Putila), SF Giants Senior Director of Player Development (Kyle Haines), and Senior Director of Amatuer Scouting (Micheal Holmes) are looking to invest a huge portion of their efforts into recruiting from college and minor league levels. Beyond looking at an individual player's potential, they want predictions on the collective cohesiveness of a team and how the team as a whole will perform throughout the season. The most obvious metric to evaluate this is a teams percentage of wins during a regular season. 
 
@@ -24,18 +27,22 @@ San Francisco Giants had an unremarkable 2022 season. This year SF Giants Genera
 # 3. Overview of additional notebooks contained in this repository
 
 ## 3 - A. Sourcing Data
+
 I have sourced all my own data and did not use any premade datasets. 
 All the data collected came from web scraping of various websites. Each set needed quite a bit of code to acquire, and then clean, so this resulted in several notebooks. To better understand my process I have a brief overview of what each notebook contains, below. Each of the below dataframes created from webscraping have been pickled and saved in this repository. 
 
 ### 3 A - a. Web Scraping Player Stats
 
 #### 3 A a- i.  Division I Collegiate Player Stats
+
 can be found in the [College_table notebook](https://github.com/AgathaZareth/Capstone_Project/blob/main/notebooks/College_table.ipynb). Here I got a list of Division I colleges from [TheBaseballCube.com](https://thebaseballcube.com). Then using this list I was able to select only division 1 college slugs from [D1Baseball.com](https://d1baseball.com). From there I was able to scrap player hitting stats for 2022 from each division 1 college. 
 
 #### 3 A a - ii.  Triple-A Minor League Player Stats
+
 can be found in the [MiLB_table notebook](https://github.com/AgathaZareth/Capstone_Project/blob/main/notebooks/MiLB_table.ipynb). From [MiLB.com](https://www.milb.com) I first got a list of team id numbers for the triple A teams, then I used those to change url slugs to get player hitting stats. Fortunately, this website defaults to showing qualified players only so the resulting data frame is much smaller because it is already filtered to just the relevant players. 
 
 #### 3 A a - iii.   MLB Player Stats
+
 can be found in the [MLB_5_seasons notebook](https://github.com/AgathaZareth/Capstone_Project/blob/main/notebooks/MLB_5_seasons.ipynb). From [MLB.com](https://www.mlb.com)  I swapped out years and page numbers in url's to get players hitting stats for 5 seasons. 
 
 <p align="center" width="100%">The above 3 mentioned player stats DF's contain the following data</p> 
@@ -124,30 +131,37 @@ can be found in the [Aggregate_team_stats](https://github.com/AgathaZareth/Capst
 # 4. Notebook Setup
 
 ## 4 - A. Imports
+
 Reproducibility is an imortant consideration. So, in addition to all the created and used dataframes being pickled, I have exported my current working environment with not only the list of packages used, but also the specific versions of those packages. This file is called `environment.yml`, you can find all relevant import data [HERE](https://github.com/AgathaZareth/Capstone_Project/blob/main/environment.yml). In this section of my notebook I have also set a random state seed of 137.
 
 
 ## 4 - B. Functions
+
 I like to put anything that is used more than once into a function to avoid the copy-past look of the notebook. Additionally, this keeps the flow of the notebook smoother and just generally cleaner looking. I will not list out all the functions I created here in the read me, see this section, 4-B, in the [Modeling notebook](https://github.com/AgathaZareth/Capstone_Project/blob/main/notebooks/Modeling.ipynb) if needeed. 
 
 
 # 5. Data Understanding
+
 The data comes from web scraping [MLB.com](https://www.mlb.com/stats/). I took the last 5 years of players hitting stats over regular seasons and cumulated them into team stats. I also took game details to determine team win percentages per season. To avoid collinearity issues down the line I only added statistics that did not have any direct relationship to other stats, i.e. I did not include things that already combined other stats. For example, batting average combines `hits` and `at bats` so I included hits and at bats but left out batting average. Any player stats with a formula was left out. 
 
 
 ## 5 - A. Load raw data
+
 In this section I load the data frame created in the [Aggregate_team_stats](https://github.com/AgathaZareth/Capstone_Project/blob/main/notebooks/Aggregate_team_stats.ipynb) notebook. See above section `3Ac-i. MLB Team Stats`, for list of column names and descriptions.
 
 
 # 6. Exploratory Data Analysis of Raw Data
+
 It is important to look at data before making any assumptions. I think linear regression is a good modeling option based on the problem but it would be erroneous to move forward without some type of data check. The goal is to establish if there is a linear relationship between the different statistics and a teams win percentage. I also need to check if there are any correlations between the independent variables themselves. Exploratory data analysis can also help identify outliers and determine weather appropriate to remove or leave as they are. 
 
 
 ## 6 - A. Drop unnecessary columns
+
 I do not want the model looking for trends in the `Year` or `Team` features so these need to be dropped. 
 
 
 ## 6 - B.  Identify target feature -  `% wins`
+
 This is just for convenience as I move through the notebook.
 
 
@@ -155,13 +169,17 @@ This is just for convenience as I move through the notebook.
 
 
 ### 6 C - a. Check shape
+
 Here I can see my data has 150 rows (datapoints) and 25 columns (24 independent variables and target variable)
 
 ### 6 C - b. Check for nulls
+
 There are zero null or missing values in this df.
 
 ### 6 C - c. Check info
+
 pandas.DataFrame.info method prints information about a DataFrame including the index dtype and columns, non-null values and memory usage.
+
 <p align="center" width="100%">
 <img src="/images/ss_examples/raw_df_info.png" alt="raw data dot info printout">
 </p>
@@ -171,7 +189,9 @@ pandas.DataFrame.info method prints information about a DataFrame including the 
 
 
 #### 6 C  c - i. Convert Dtypes
+
 I do a blanket conversion of the entire df since all features, independent and dependent, need to be float64.
+
 <p align="center" width="100%">
 <img src="/images/ss_examples/converted_to_floats_info.png" alt="raw data converted to floats dot info printout">
 </p>
