@@ -251,12 +251,15 @@ Use `sklearn.model_selection.train_test_split` (documentation [HERE](https://sci
 ### 7 A - a. Separate data into features and target
 
 ### 7 A - b. Split data into train and test sets
+```
 
 X_train has a shape of: (120, 24)
 y_train has a shape of: (120,)
 
 X_test has a shape of: (30, 24)
 y_test has a shape of: (30,)
+
+```
 
 ## 7 - B. Scale Data
 
@@ -386,6 +389,314 @@ Converting `train_scaled` and `test_scaled` to a pandas df reset the indices. I 
 <img src="/images/ss_examples/heatmap_notes.png" alt="blue note box: Interestingly, the averaged variables have a few features with a stronger correlation with the target variable than those of the corresponding cumulative variables. Overall however, the cumulative features seem to have stronger correlations. In addition, there are a lot more .9 (or above) inter-feature correlations among the averaged variables. The averaged variables have 18 inter correlated pairs of .9 or greater, while the cumulative variables have only 5.">
     
 </p>
+
+### 7 C - c. Selecting Features to Drop
+
+Based on the Heatmap and Regplots I will *keep* the cumulative sum features. I need to eliminate the highly correlated features while keeping as much data as possible. This means I need to remove the least amount of features possible. `Runs Sum` has the highest correlation with `% wins` so I want to keep this feature. 
+
+
+<p align="center" width="100%">
+<img src="/images/elimination_tables.png" alt="table showing elimination process">
+    
+</p>
+
+By eliminating `Hits Sum` & `Runs Batted In Sum` I can remove all the pairs with a correlation of .9 or greater. This leaves:
+- `Games Played Sum`
+- `At Bats Sum`
+- `Runs Sum`
+- `Doubles Sum`
+- `Triples Sum`
+- `Home Runs Sum`
+- `Walks Sum`
+- `Strikeouts Sum`
+- `Stolen Bases Sum`
+- `Caught Stealing Sum`
+
+
+**Note: this is likely not a comprehensive selection of features to be eliminated.* 
+
+
+### 7 C - d. Drop Features
+Create reduced dfs from `X_test_scaled` & `X_train_scaled`
+
+New variables 
+- `X_train_s_r`: "X_train, scaled, and reduced"
+- `X_test_s_r`: "X_test, scaled, and reduced"
+
+#### 7 C d - i. Pairplot
+The final visualization to check inter feature correlation is a pairplot. Pairplots are great ways to see the relationship between two features using scatter plots. Pariplots also show the distribution of each feature across the diagonal. This has already  been plotted but here we can see just the features I have decided to keep.
+
+<p align="center" width="100%">
+<img src="/images/ss_examples/pairplot.png" alt="pairplot of remaining independent variables and target feature">
+    
+<img src="/images/ss_examples/pairplot_notes.png" alt="blue note box: I can see there are still quite a bit of features that are correlated with eachother. These will likely be filtered out by p value when modeling.">
+    
+</p>
+
+## 7 - D. Investigate Outliers
+
+Removing outliers can reduce the errors (or residuals) of a model. However, not all outliers should be removed, and Jim, from *Statistics By Jim*, perfectly states in [Guidelines for Removing and Handling Outliers in Data](https://statisticsbyjim.com/basics/remove-outliers/), "It’s bad practice to remove data points simply to produce a better fitting model or statistically significant results." 
+There are other ways to deal with outliers than to do a blanketed removal. The most common is logging. Before deciding to add more complexity to my model by logging features, I need to investigate where these outliers are, and how many? Is the complexity worth it for a few data points? `boxplots` function used below.
+
+
+<p align="center" width="100%">
+<img src="/images/ss_examples/outliers_boxplot.png" alt="boxplot of 10 remaining independent variables">
+    
+<img src="/images/ss_examples/notes_outlier_boxplots.png" alt="blue note box: Only 4 features have outliers and it looks like they each have only 1.">
+    
+</p>
+
+I will check the number of outliers by using the `print_outliers` function. This will identify outliers from a column based on zscore. If 3 standard deviations away from mean the data point is considered an outlier. 
+
+```
+
+Triples Sum has 1 outlier(s)
+Caught Stealing Sum has 1 outlier(s)
+
+```
+
+
+<p align="center" width="100%">    
+<img src="/images/ss_examples/investigate_outlier_notes.png" alt="blue note box: These outliers are likely due to natural variation but my sample size is relatively low. Yes it covers 5 year of data but each season only has 24 teams i.e. data points. I think If I were able to increase my sample size, these outliers would fall within the typical gaussian bell curve.">
+    
+</p>
+
+# 8. Linear Regression Modeling - Scaled Data
+
+## 8 - A. Build baseline and final model
+
+This is all wrapped up in a beautiful function that creates a baseline model by determining the highest positively correlated feature with `% wins`. Then it iteratively adds features based on the features p value. See `build_models` docstring for more info. 
+
+
+<p align="center" width="100%">    
+<img src="/images/ss_examples/build_models.png" alt="baseline and final models: histogram and qq plots of residuals, printout of r_squared, adjusted_r_squared, k_fold_score, and the second half of ols .summary report with p values and variable coefficients">
+    
+</p>
+
+
+Save final model predictors.
+
+```
+
+Features used in final_model to predict win percentage: 
+
+['Runs Sum', 'Strikeouts Sum', 'Walks Sum']
+
+```
+
+## 8 - B. Evaluation of Final Model
+
+### 8B - a. Create `final_scaled_model_df`
+
+<p align="center" width="100%">    
+<img src="/images/ss_examples/final_scaled_model_df_ss.png" alt="top 5 and last 5 rows of final scaled model df - this is the 3 independent variables and target feature">
+    
+</p>
+
+### 8B - b.Linear Regression Assumption checks
+
+Regression is a powerful analysis however, if some of the necessary assumptions are not satisfied, regression makes biased and unreliable predictions. Below I check the following 4 assumptions:
+- Independence Assumption
+- Linearity Assumption
+- Homoscedasticity Assumption
+- Normality Assumption
+
+I give brief explanations of these assumption checks at each header but you can also visit:
+- [HERE](https://github.com/learn-co-curriculum/dsc-regression-assumptions#about-regression-assumptions) for a short summary of Linearity, Homoscedasticity, and Normality Assumptions. 
+
+#### 8Bb - i. Independence Assumption
+
+Because I am using this model for both inferential and predictive purposes I need to ensure that each observation is independent of the others. A violation of the independence assumption results in incorrect confidence intervals and p-values, it can essentially be thought of as a kind of double-counting in the model and it can produce estimates of the regression coefficients that are not statistically significant. 
+
+This article ["How to detect and deal with Multicollinearity"](https://towardsdatascience.com/how-to-detect-and-deal-with-multicollinearity-9e02b18695f1) does a really good job of explaining the differences between using correlations vs VIF, 
+>A correlation plot can be used to identify the correlation or bivariate relationship between two independent variables whereas VIF is used to identify the correlation of one independent variable with a group of other variables. Hence, it is preferred to use VIF for better understanding.
+>
+>- VIF = 1 → No correlation
+>- VIF = 1 to 5 → Moderate correlation
+>- VIF >10 → High correlation
+
+Below I check the correlation between the 3 independent features that made it into the model. I do this using the function `collinearity_pairs` which returns pandas.DataFrame of pairs of features with correlations between .75 and 1. 
+
+<p align="center" width="100%">
+<img src="/images/ss_examples/corr_pairs.png" alt="pairs of independent variables with more than .75 correlation.">
+    
+<img src="/images/ss_examples/collinearity_pairs_notes.png" alt="blue note box: You can see that `Runs Sum` and `Walks Sum` have a Pearson's correlation of 0.8127. As stated above this is just a measurement of the two features with each other and not a measure of each independent variable with the group of other variables in the model. So while it is interesting to see this correlation is so high, it does not tell me much about how these two variables might impact my models inferential capabilities.">
+    
+</p>
+
+
+Variance inflation factor is a measure of the degree of multicollinearity or correlation between the independent variables in your multiple linear regression analysis. The rules of thumb are listed above. Statsmodels has a VIF function, [statsmodels.stats.outliers_influence.variance_inflation_factor](https://www.statsmodels.org/dev/generated/statsmodels.stats.outliers_influence.variance_inflation_factor.html), and states, 
+>One recommendation is that if VIF is greater than 5, then the explanatory variable given by exog_idx is highly collinear with the other explanatory variables, and the parameter estimates will have large standard errors because of this.
+
+Based on this and the above rule of thumbs, I have a function `get_VIFs_above5` that does exactly as it sounds, it returns any feature with an VIF above 5.
+
+
+<p align="center" width="100%">
+
+<img src="/images/ss_examples/green_VIF_notes.png" alt="green success box: Nothing returned, this means there are no features that have a VIF above 5. The assumption of independence is satisfied">
+    
+</p>
+
+
+#### 8Bb - ii. Linearity Assumption
+
+The linearity assumption requires that there is a linear relationship between the response variable (Y) and predictor (X). Linear means that the change in Y by 1-unit change in X, is constant. If you were to try to fit a linear model to a non-linear data set, OLS would fail to capture the trend mathematically, resulting in an inaccurate relationship. This will also result in erroneous predictions on an unseen data set.
+
+<p align="center" width="100%">
+
+<img src="/images/ss_examples/regplots_3_feats.png" alt="regplots of three features that made it into final model.">
+    
+</p>
+
+
+
+#### 8Bb - iii. Homoscedasticity Assumption
+
+Homoscedasticity indicates that a dependent variable's variability is equal across values of the independent variable. A scatter plot is a good way to check whether the data are homoscedastic (meaning the residuals are equal across the regression line). 
+
+<p align="center" width="100%">
+
+<img src="/images/ss_examples/residuals_vs_predicted.png" alt="scatter plot of residuals vs predicted y values.">
+    
+</p>
+
+#### 8Bb - iv. Normality Assumption
+
+The normality assumption states that the model residuals should follow a normal distribution. This can be viewed with either a histogram or a QQ Plot of the residuals. I prefer to use both to fully understand the distribution. 
+
+
+<p align="center" width="100%">
+
+<img src="/images/ss_examples/histo_qq_resids.png" alt="histogram and qq plot of residuals.">
+    
+</p>
+
+
+### 8B - c. Root Mean Squared Error
+Root mean square error is one of the most commonly used measures for evaluating the quality of predictions. It shows how far predictions fall from measured true values using Euclidean distance (i.e. the length of a line segment between the two points).
+
+```
+
+MSE :  33.78809248898828
+RMSE :  5.812752574210284
+
+```
+
+<p align="center" width="100%">
+
+<img src="/images/ss_examples/RMSE_notes.png" alt="blue note box: This RMSE means, on average, this model is off by about 5.81%.">
+    
+</p>
+
+
+## 8 - C. Interpreting model results
+`coeffs_to_df` function used below. This function has a parameter `predictors_scaled` when set to `True` it takes the standard deviation of each predictor and names the columns in a translatable way that makes it easy to interpret the coefficients. 
+
+<p align="center" width="100%">
+
+<img src="/images/ss_examples/coeffs_to_df.png" alt="screen shot of coeffs_to_df, gives coefficients of independent variables from the model and how they increase or decrease percent of wins in a regular season.">
+ 
+<img src="/images/ss_examples/interpreting_notes.png" alt="blue note box: This df shows, RUNS is the most significant feature when predicting a teams win percentage. Each increase of 118 RUNS, results, on average, in an increase of 5.78% of WINS in a teams regular season. Next is WALKS. Each increase of 153 WALKS, results, on average, in an increase of 2.43% of WINS in a team's regular season. And finally, STRIKEOUTS. Each increase of 93 STRIKEOUTS, results, on average, in a decrease of 1.83% of WINS in a teams regular season..">
+    
+</p>
+
+
+To put this into perspective, I will create a dataframe with world series winners for 2022, 2021, 2019, 2018, and 2017. I will include just the three predictive features from the model and the teams regular season win percentage.  I will also include the SF Giants for each respective year for comparison. 
+
+<img src="/images/ss_examples/wolrd_series_winners_and_giants.png" alt="df with 5 seasons of world series winners regular season win percentages and the sf giants win percentage for those same 5 seasons">
+ 
+<img src="/images/ss_examples/interpreting_notes.png" alt="blue note box: The grey rows are the World Series winners, the white rows are the SF Giants team stats. You can see, with the exception of 2021, the world series winners had regular season win percentages of 10 - 22 percent more than the SF Giants. 2021 the Giants were 1st in National League West, eventually losing the National League Division Series (3-2) to the Dodgers who had a regular season win % of 65.43, less than 1% less than SF Giants.">
+    
+</p>
+
+
+## 8 - D. Using the model for predictions
+
+### 8D - a. Check SF Giants 2022 regular season prediction
+Check the models prediction on SF Giants 22 regular season
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
