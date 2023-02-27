@@ -194,19 +194,10 @@ I do a blanket conversion of the entire df since all features, independent and d
 
 <p align="center" width="100%">
 <img src="/images/ss_examples/converted_to_floats_info.png" alt="raw data converted to floats dot info printout">
+    
+<img src="/images/ss_examples/success_dtypes_floats.png" alt="green success box: All Dtypes are now floats.">    
 </p>
 
-
-<table><tr><td><b>Success:</b> All Dtypes are now floats.
-</td></tr></table>
-
-
-```
-
-Success:
-All Dtypes are now floats.
-
-```
 
 
 ### 6 C - d. Distribution of values
@@ -230,7 +221,91 @@ I will transpose it for easier viewing.
 
 <p align="center" width="100%">
 <img src="/images/ss_examples/raw_describe.png" alt="raw data dot describe">
+
+<img src="/images/ss_examples/check_describe_notes.png" alt="blue note box: A quick scroll down the mean, min, & max columns I can see there is a huge range in each of the independent features. Variables of vastly different scales can impact the influence over the model. To avoid this, it is best practice to normalize the scale of all features before feeding the data into a machine learning algorithm. I will need to standardize my data so the features with larger numeric values are not unfairly weighted by the model. To avoid any potential data leakage, I will first split the data before altering it in any way.">
+
 </p>
+
+
+
+#### 6 C d - ii. Plot distributions of each feature
+
+When deciding which method to use when scaling, it can be helpful to understand the distribution of values so I want to do a quick histogram plot of each feature. I will use seaborn.histplot for this, documentation [HERE](https://seaborn.pydata.org/generated/seaborn.histplot.html). Presumably, the split data will have similar distributions. If I wanted to be extremely careful I could view distributions AFTER I split but in this particular case I think it is fine to view now. `hist_grid` function used below.
+
+<p align="center" width="100%">
+<img src="/images/ss_examples/raw_data_distribution_of_values.png" alt="histogram thumbnail tiles of each feature">
+
+<img src="/images/ss_examples/blue_note_box_raw_histo_tiles.png" alt="blue note box: Most features have a roughly normal distribution. I don't see any extreme skewness that might justify loggin a variable.">
+
+</p>
+
+
+
+# 7. Preprocessing
+
+
+## 7 - A. Train Test Split
+
+Use `sklearn.model_selection.train_test_split` (documentation [HERE](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html)) to create a train and test set. I will withhold 20% of data from the models learning-data, then use that 20% to test and evaluate my models performance.
+
+### 7 A - a. Separate data into features and target
+
+### 7 A - b. Split data into train and test sets
+
+## 7 - B. Scale Data
+
+Feature scaling is a method used to normalize the range of the independent variables of data. A machine learning algorithm can only see numbers; this means, if there is a vast difference in the feature ranges (as there is with this data, demonstrated in step 4f) it makes the underlying assumption that higher ranging numbers have superiority of some sort and these more significant numbers start playing a more decisive role while training the model. Therefore, feature scaling is needed to bring every feature on the same footing.
+
+**Standardization**
+
+Feature standardization makes the values of each feature in the data have zero mean and unit variance. The general method of calculation is to determine the distribution mean and standard deviation for each feature and calculate the new data point by the following formula:
+
+$$x' = \dfrac{x - \bar x}{\sigma}$$
+
+x' will have mean $\mu = 0$ and $\sigma = 1$
+
+Note that standardization does not make data $more$ normal, it will just changes the mean and the standard error!
+
+**Normalization**
+- Min-max scaling
+ - This way of scaling brings all values between 0 and 1. 
+ 
+$$x' = \dfrac{x - \min(x)}{\max(x)-\min(x)}$$
+
+
+- Mean normalization
+ - The distribution will have values between -1 and 1, and a mean of 0.
+ 
+$$x' = \dfrac{x - \text{mean}(x)}{\max(x)-\min(x)}$$
+
+- You can bound your normalization range by any interval `[a,b]` with
+
+$$x' = a + \dfrac{(x - \min(x))(b - a)}{\max(x)-\min(x)}$$
+
+
+---
+
+Choosing which method to use depends on the distribution of your data.  A couple of relevant generalizations are: 
+
+- Standardization may be used when data represent Gaussian Distribution, while Normalization is great with Non-Gaussian Distribution
+- Impact of Outliers is very high in Normalization
+
+
+
+### 7 B - a. Scale and create new scaled dfs
+
+Because my data is normally distributed I will use `sklearn.preprocessing.StandardScaler` default standardization (documentation [HERE](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html)):
+
+$$z = (x - u) / s$$
+
+Where u is the mean of the training samples, and s is the standard deviation of the training samples. 
+
+
+
+
+
+
+
 
 
 
