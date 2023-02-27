@@ -252,6 +252,12 @@ Use `sklearn.model_selection.train_test_split` (documentation [HERE](https://sci
 
 ### 7 A - b. Split data into train and test sets
 
+X_train has a shape of: (120, 24)
+y_train has a shape of: (120,)
+
+X_test has a shape of: (30, 24)
+y_test has a shape of: (30,)
+
 ## 7 - B. Scale Data
 
 Feature scaling is a method used to normalize the range of the independent variables of data. A machine learning algorithm can only see numbers; this means, if there is a vast difference in the feature ranges (as there is with this data, demonstrated in step 4f) it makes the underlying assumption that higher ranging numbers have superiority of some sort and these more significant numbers start playing a more decisive role while training the model. Therefore, feature scaling is needed to bring every feature on the same footing.
@@ -299,6 +305,97 @@ Because my data is normally distributed I will use `sklearn.preprocessing.Standa
 $$z = (x - u) / s$$
 
 Where u is the mean of the training samples, and s is the standard deviation of the training samples. 
+
+
+### 7 B - b. Explore the scaling effect on training data
+
+#### 7 B b - i. Check `X_train_scaled` describe
+
+
+<p align="center" width="100%">
+<img src="/images/ss_examples/scaled_describe.png" alt="dot describe df of scaled data">
+
+<img src="/images/ss_examples/scaled_describe_notes.png" alt="blue note box: Now that the df has been scaled this .describe() method is less useful. A visualization will explain the transformation better.">
+
+</p>
+
+
+
+#### 7 B b - ii. Visualizations
+pandas.DataFrame.describe method is great but it fails to truely convey how the data is transformed by scaling. The best way to view this change is with boxplots and histograms. 
+
+##### 7 B b ii - 1. boxplots
+seaborn.boxplot show the minimum, first quartile, median, third quartile, and maximum of features, documentation [HERE](https://seaborn.pydata.org/generated/seaborn.boxplot.html).
+Boxplots are a great way to see the change in the range of each independent feature before and after standard scaling. `boxplots` function used below.
+
+
+<p align="center" width="100%">
+<img src="/images/ss_examples/boxplot_before_scaling.png" alt="boxplot of data BEFORE scaling">
+
+<img src="/images/ss_examples/boxplot_after_scaling.png" alt="boxplot of data AFTER scaling">
+
+</p>
+
+##### 7 B b ii - 2. histograms
+An additional way to view the scaling effect is through histograms. If you think of boxplots as a top view of distributions, then you can think of histograms as a side view. Imagine yourself standing on the right hand side of the above boxplots looking down the 0 line. `hist_overlay` function used below.
+
+<p align="center" width="100%">
+<img src="/images/ss_examples/histos_before_scaling.png" alt="histograms of data BEFORE scaling">
+
+<img src="/images/ss_examples/histos_after_scaling.png" alt="histograms of data AFTER scaling">
+
+<img src="/images/ss_examples/vizualization_notes.png" alt="blue note box: You can see the means of all the independent variables are roughly around 0 and they all have roughly the same min and max values. From the boxplots, you can also see there are a few outliers, primarily in the team averaged variables.">
+    
+</p>
+
+## 7 - C. Feature Reduction
+
+Before moving on I want to regplot all the independent variables. The first 12 features are cumulative totals of team stats and the second 12 are those same stats but divided by the number of players to get the mean. If I use both, the cumulative totals and the averages, there will be a lot of multicollinearity. Multicollinearity occurs when two or more independent variables are highly correlated with one another, and as you can imagine using one statistic to acquire the other would have a high correlation. So I need to make a choice on which set to use. 
+
+
+### 7 C - a. Regplots
+Use regplots to show me which features have a 'cleaner' linear relationship with target variable. This method is used to plot data and a linear regression model fit. There are a number of mutually exclusive options for estimating the regression model see documentation [HERE](https://seaborn.pydata.org/generated/seaborn.regplot.html). `regplot_grid` function used below.
+
+<p align="center" width="100%">
+<img src="/images/ss_examples/regplot_all_feats.png" alt="regplots of all 24 independent variables">
+
+<img src="/images/ss_examples/regplot_notes.png" alt="blue note box: It appears to me that the cumulative sum totals have either the same or even cleaner linear relationships with the target variable. You can see this with just the scatter plots alone but the red shaded band is perhaps a better representation. This red line shows what a linear model might look like, with the shaded part being the confidence interval. The more 'noise' the wider that red shaded area. A perfectly confident model would be a clean red line without a shaded band. I will use heatmaps to investigate further.">
+    
+</p>
+
+### 7 C - b. Heatmaps
+
+The regplots show the relationship between the features and target variable. The heatmap will show the  correlations between all of the numeric values (in this case, all the features) in our data. The x and y axis labels indicate the pair of values that are being compared, and the color and the number are both representing the correlation. Color is used here to make it easier to find the largest/smallest numbers. The bottom row is particularly important because it shows all the features correlation with the target variable but I am also looking for strong correlation between the independent variables. Documentation [HERE](https://seaborn.pydata.org/generated/seaborn.heatmap.html). `heatmap` function used below.
+
+#### 7 C b - i. Set up for heatmap plots
+Converting `train_scaled` and `test_scaled` to a pandas df reset the indices. I now need to convert `y_train` and `y_test` to a pandas df and reset the indices so I can concat `train_scaled` and `y_train` to create a visualization df. 
+
+
+##### 7 C b i - 1. Heatmap - cumulative features
+
+<p align="center" width="100%">
+<img src="/images/ss_examples/heatmap_cumulative.png" alt="heatmap of the 12 cumulative independent variables and the target variable">
+    
+</p>
+
+##### 7 C b i - 2. Heatmap - averaged features
+
+<p align="center" width="100%">
+<img src="/images/ss_examples/heatmap_averaged.png" alt="heatmap of the 12 averaged independent variables and the target variable">
+    
+<img src="/images/ss_examples/heatmap_notes.png" alt="blue note box: Interestingly, the averaged variables have a few features with a stronger correlation with the target variable than those of the corresponding cumulative variables. Overall however, the cumulative features seem to have stronger correlations. In addition, there are a lot more .9 (or above) inter-feature correlations among the averaged variables. The averaged variables have 18 inter correlated pairs of .9 or greater, while the cumulative variables have only 5.">
+    
+</p>
+
+
+
+
+
+
+
+
+
+
 
 
 
