@@ -182,19 +182,10 @@ pandas.DataFrame.info method prints information about a DataFrame including the 
 
 <p align="center" width="100%">
 <img src="/images/ss_examples/raw_df_info.png" alt="raw data dot info printout">
+    
+<img src="/images/ss_examples/check_info_notes.png" alt="blue note box: There are no missing values, however, the above shows all the independent variables are strings; they need to be converted to numeric values">    
 </p>
 
-<table><tr><td><b>'Check info' notes:</b> There are no missing values, however, the above shows all the independent variables are strings; they need to be converted to numeric values
-</td></tr></table>
-
-
-```
-
-'Check info' notes:
-There are no missing values, however, the above shows all the independent 
-variables are strings; they need to be converted to numeric values.
-
-```
 
 
 #### 6 C  c - i. Convert Dtypes
