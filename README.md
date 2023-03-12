@@ -9,14 +9,14 @@ Drafting New Talent for SF Giants 2023 Season
 ![close-up of a worn baseball on a lush green field](https://camo.githubusercontent.com/6da502f8786aa1102f2fce163902cec9f2b2405891e79e55e2db111412af56eb/68747470733a2f2f7777772e616c756d6e692e637265696768746f6e2e6564752f732f313235302f696d616765732f656469746f722f616c756d6e695f736974652f656d61696c732f6261736562616c6c5f696e5f67726173735f636f7665725f322e6a7067)
 
 
-# 1. Introduction
+# Introduction
 
 Intuitively, it makes sense that the performance of the team as a whole is more important than individual players themselves, we are all familiar with the idiom "greater than the sum of its parts" and baseball teams are no exception. This notebook will provide an understanding of how a teams cumulative statistics influence the percentage of wins in their regular season games. With this inferentail understanding there is also predictive capabilities, that is to say, the be able to take in the statistics of a team, then to *predict* that teams win percentage for their regular season. The effectiveness of this predictive model will be measured by how well it predicts win percentages in a test set; a set that I have the answers for but the model does not. 
 
 The insight provided by the inferential aspects will guide my recruitment recommendations and the predictive ability will test the new rosters potential win percentage. 
 
 
-# 2. Business Understanding
+# Business Understanding
 
 <p align="left" width="100%"><img align="left" width="22%" src=https://i.pinimg.com/736x/0e/68/ed/0e68eda6243faa5f754b1cfb2b04846d--giants-sf-giants-baseball.jpg width="125", alt="SF Giants logo">
 San Francisco Giants had an unremarkable 2022 season. This year SF Giants General Manager (Pete Putila), SF Giants Senior Director of Player Development (Kyle Haines), and Senior Director of Amatuer Scouting (Micheal Holmes) are looking to invest a huge portion of their efforts into recruiting from college and minor league levels. Beyond looking at an individual player's potential, they want predictions on the collective cohesiveness of a team and how the team as a whole will perform throughout the season. The most obvious metric to evaluate this is a teams percentage of wins during a regular season. 
@@ -24,12 +24,57 @@ San Francisco Giants had an unremarkable 2022 season. This year SF Giants Genera
 </p>
 
 
-# 3. Overview of additional notebooks contained in this repository
+# Visual Overview of Notebooks Contained within Repository
+
+I have sourced all my own data and did not use any premade datasets. All the data collected came from web scraping of various websites. Each set needed quite a bit of code to acquire, and then clean, so this resulted in several notebooks. These notebooks are located in the `notebooks` folder. Each notebook yeilded at least 1 dataframe, which was then pickled. These saved dataframes are located in the `pickled_tables` folder in this repository.
+
+This is an expansive repository so below is an overview of the flow of the notebooks and how they are utilized by the final `Modeling` notebook. For a more detailed summary of each notebook see section "3 - A. Sourcing Data" in the `Modeling` notebook.
+
+![overview of how additional notebooks are utilized in final modeling notebook](../images/ss_examples/overview_notebooks.png)
+
+## Breakdown of TRAIN and UTILIZE Steps
+The above graphic simplifies the modeling process into **Training** and **Utilizing** the model. The below graphics offer more detail about these two steps. They show what notebooks are used at different parts of these steps, and provide insight as to what information is extracted from each notebook and how it is relevant to the final `Modeling` notebook. 
+
+### Visual Overview of the Model Training Process
+
+![overview of utilizing trained model](../images/ss_examples/train_overview.png)
+
+The above **Training** graphic ends at the Evaluated Model. The below graphic starts with the trained model and shows the steps taken to utilize the model for comparing hypothetical rosters, showing how different combinations of players change a teams projected regular-season-win-percentage. 
+
+### Visual Overview of the Model Utilization Process
+
+![overview of utilizing trained model](../images/ss_examples/overview_utilizing_model.png)
+
+
+# Reproducibility
+
+Reproducibility is an imortant consideration. So, in addition to all the created and used dataframes being pickled, I have exported my current working environment with not only the list of packages used, but also the specific versions of those packages. This file is called `environment.yml`, you can find all relevant import data in this file. [HERE](https://github.com/AgathaZareth/Capstone_Project/blob/main/environment.yml) is the link to view in github. Note: there is a random state seed of 137 in my final `Modeling` notebook.
+
+# Data Understanding
+
+The data comes from web scraping [MLB.com](https://www.mlb.com/stats/), [MiLB.com](https://www.milb.com), [TheBaseballCube.com](https://thebaseballcube.com), and [D1Baseball.com](https://d1baseball.com). 
+
+Major League Player and Game Stats - [MLB.com](https://www.mlb.com/stats/):
+ - 5 regular season player hitting stats 
+   -  To avoid collinearity issues down the line I only added statistics that did not have any direct relationship to other stats, i.e. I did not include things that already combined other stats. For example, `batting average` combines `hits` and `at bats` so I included `hits` and `at bats` but left out `batting average`. In summary, any player-stat with a formula was left out. 
+ - Data on each game of the 5 regular seasons
+   - who played who, where they played, date of game, and each teams score
+ 
+Minor League Triple-A Player Stats - [MiLB.com](https://www.milb.com):
+- 2022 player hitting stats. This website defaults to showing qualified players only, so the resulting data frame is much smaller compared to the Major and Collegiate tables. 
+
+Collegiate Division-1 Player Stats - [TheBaseballCube.com](https://thebaseballcube.com), and [D1Baseball.com](https://d1baseball.com):
+- 2022 player hitting stats
+
+
+---
+---
+
+
 
 ## 3 - A. Sourcing Data
 
-I have sourced all my own data and did not use any premade datasets. 
-All the data collected came from web scraping of various websites. Each set needed quite a bit of code to acquire, and then clean, so this resulted in several notebooks. To better understand my process I have a brief overview of what each notebook contains, below. Each of the below dataframes created from webscraping have been pickled and saved in this repository. 
+I have sourced all my own data and did not use any premade datasets. All the data collected came from web scraping of various websites. Each set needed quite a bit of code to acquire, and then clean, so this resulted in several notebooks. To better understand my process I have a brief overview of what each notebook contains, below. Each of the below dataframes created from webscraping have been pickled and saved in this repository. 
 
 ### 3 A - a. Web Scraping Player Stats
 
