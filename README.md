@@ -11,7 +11,7 @@ Drafting New Talent for SF Giants 2023 Season
 
 # Introduction
 
-Intuitively, it makes sense that the performance of the team as a whole is more important than individual players themselves, we are all familiar with the idiom "greater than the sum of its parts" and baseball teams are no exception. This notebook will provide an understanding of how a teams cumulative statistics influence the percentage of wins in their regular season games. With this inferentail understanding there is also predictive capabilities, that is to say, the be able to take in the statistics of a team, then to *predict* that teams win percentage for their regular season. The effectiveness of this predictive model will be measured by how well it predicts win percentages in a test set; a set that I have the answers for but the model does not. 
+Intuitively, it makes sense that the performance of the team as a whole is more important than individual players themselves, we are all familiar with the idiom "greater than the sum of its parts" and baseball teams are no exception. This notebook will provide an understanding of how a team's cumulative statistics influence the percentage of wins in their regular season games. With this inferential understanding there are also predictive capabilities, that is to say, the ability to take in the statistics of a team, then to *predict* that teams win percentage for their regular season. The effectiveness of this predictive model will be measured by how well it predicts win percentages in a test set; a set that I have the answers for but the model does not. 
 
 The insight provided by the inferential aspects will guide my recruitment recommendations and the predictive ability will test the new rosters potential win percentage. 
 
@@ -38,7 +38,9 @@ This is an expansive repository so below is an overview of the flow of the noteb
 ## Breakdown of TRAIN and UTILIZE Steps
 The above graphic simplifies the modeling process into **Training** and **Utilizing** the model. The below graphics offer more detail about these two steps. They show what notebooks are used at different parts of these steps, and provide insight as to what information is extracted from each notebook and how it is relevant to the final `Modeling` notebook. 
 
-### Visual Overview of the Model Training Process
+<h3 align="center" width="100%">
+Visual Overview of the Model Training Process
+</h3>
 
 <p align="center" width="100%">
 <img src="/images/ss_examples/train_overview.png" alt="overview of utilizing trained model"> 
@@ -46,7 +48,9 @@ The above graphic simplifies the modeling process into **Training** and **Utiliz
 
 The above **Training** graphic ends at the Evaluated Model. The below graphic starts with the trained model and shows the steps taken to utilize the model for comparing hypothetical rosters, showing how different combinations of players change a teams projected regular-season-win-percentage. 
 
-### Visual Overview of the Model Utilization Process
+<h3 align="center" width="100%">
+Visual Overview of the Model Utilization Process
+</h3>
 
 <p align="center" width="100%">
 <img src="/images/ss_examples/overview_utilizing_model.png" alt="overview of utilizing trained model"> 
