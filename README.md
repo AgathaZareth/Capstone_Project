@@ -30,21 +30,27 @@ I have sourced all my own data and did not use any premade datasets. All the dat
 
 This is an expansive repository so below is an overview of the flow of the notebooks and how they are utilized by the final `Modeling` notebook. For a more detailed summary of each notebook see section "3 - A. Sourcing Data" in the `Modeling` notebook.
 
-![overview of how additional notebooks are utilized in final modeling notebook](../images/ss_examples/overview_notebooks.png)
+<p align="center" width="100%">
+<img src="/images/ss_examples/overview_notebooks.png" alt="overview of how additional notebooks are utilized in final modeling notebook"> 
+</p>
+
 
 ## Breakdown of TRAIN and UTILIZE Steps
 The above graphic simplifies the modeling process into **Training** and **Utilizing** the model. The below graphics offer more detail about these two steps. They show what notebooks are used at different parts of these steps, and provide insight as to what information is extracted from each notebook and how it is relevant to the final `Modeling` notebook. 
 
 ### Visual Overview of the Model Training Process
 
-![overview of utilizing trained model](../images/ss_examples/train_overview.png)
+<p align="center" width="100%">
+<img src="/images/ss_examples/train_overview.png" alt="overview of utilizing trained model"> 
+</p>
 
 The above **Training** graphic ends at the Evaluated Model. The below graphic starts with the trained model and shows the steps taken to utilize the model for comparing hypothetical rosters, showing how different combinations of players change a teams projected regular-season-win-percentage. 
 
 ### Visual Overview of the Model Utilization Process
 
-![overview of utilizing trained model](../images/ss_examples/overview_utilizing_model.png)
-
+<p align="center" width="100%">
+<img src="/images/ss_examples/overview_utilizing_model.png" alt="overview of utilizing trained model"> 
+</p>
 
 # Reproducibility
 
