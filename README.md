@@ -19,7 +19,7 @@ This collection of notebooks provides an understanding of how a team's cumulativ
 
 # Business Understanding
 
-<p align="left" width="100%"><img align="left" width="22%" src=https://i.pinimg.com/736x/0e/68/ed/0e68eda6243faa5f754b1cfb2b04846d--giants-sf-giants-baseball.jpg width="115", alt="SF Giants logo">
+<p align="left" width="100%"><img align="left" width="15%" src=https://i.pinimg.com/736x/0e/68/ed/0e68eda6243faa5f754b1cfb2b04846d--giants-sf-giants-baseball.jpg width="115", alt="SF Giants logo">
 San Francisco Giants had an unremarkable 2022 season. This year SF Giants executives are looking to recruit a large portion of new talent from collegiate and minor leagues. Beyond looking at an individual player's potential, they want predictions on how the team will perform throughout the season. The most obvious metric to evaluate this is a teams percentage of wins during their regular season.
 </p>
 
