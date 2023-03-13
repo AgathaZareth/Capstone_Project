@@ -8,27 +8,27 @@ Drafting New Talent for SF Giants 2023 Season
 
 ![close-up of a worn baseball on a lush green field](https://camo.githubusercontent.com/6da502f8786aa1102f2fce163902cec9f2b2405891e79e55e2db111412af56eb/68747470733a2f2f7777772e616c756d6e692e637265696768746f6e2e6564752f732f313235302f696d616765732f656469746f722f616c756d6e695f736974652f656d61696c732f6261736562616c6c5f696e5f67726173735f636f7665725f322e6a7067)
 
+*This notebook is intended for educational purposes, all scenarios are hypothetical and intended to satisfy an academic assignment.*
 
 # Introduction
 
-Intuitively, it makes sense that the performance of the team as a whole is more important than individual players themselves, we are all familiar with the idiom "greater than the sum of its parts" and baseball teams are no exception. This notebook will provide an understanding of how a team's cumulative statistics influence the percentage of wins in their regular season games. With this inferential understanding there are also predictive capabilities, that is to say, the ability to take in the statistics of a team, then to *predict* that teams win percentage for their regular season. The effectiveness of this predictive model will be measured by how well it predicts win percentages in a test set; a set that I have the answers for but the model does not. 
+We are all familiar with the idiom "greater than the sum of its parts" and baseball teams are no exception. Intuitively, it makes sense that the performance of a team as a whole is more important than individual players themselves, but what specifically makes up the magic sauce that leads to a team's winning performance?
 
-The insight provided by the inferential aspects will guide my recruitment recommendations and the predictive ability will test the new rosters potential win percentage. 
+This collection of notebooks provides an understanding of how a team's cumulative statistics influence the percentage of wins in their regular season games. I will provide 3 statistics that are the most predictive of increasing or decreasing this win percentage. By knowing which individual player stats are most indicative of team performance, we can look for players in minor and collegiate leagues who will have the greatest positive impact on the teams win percentage, and test how a roster update will alter the projected win percentage compared to the current 2023 roster. 
 
 
 # Business Understanding
 
 <p align="left" width="100%"><img align="left" width="22%" src=https://i.pinimg.com/736x/0e/68/ed/0e68eda6243faa5f754b1cfb2b04846d--giants-sf-giants-baseball.jpg width="125", alt="SF Giants logo">
-San Francisco Giants had an unremarkable 2022 season. This year SF Giants General Manager (Pete Putila), SF Giants Senior Director of Player Development (Kyle Haines), and Senior Director of Amatuer Scouting (Micheal Holmes) are looking to invest a huge portion of their efforts into recruiting from college and minor league levels. Beyond looking at an individual player's potential, they want predictions on the collective cohesiveness of a team and how the team as a whole will perform throughout the season. The most obvious metric to evaluate this is a teams percentage of wins during a regular season. 
-
+San Francisco Giants had an unremarkable 2022 season. This year SF Giants executives are looking to recruit a large portion of new talent from collegiate and minor leagues. Beyond looking at an individual player's potential, they want predictions on how the team will perform throughout the season. The most obvious metric to evaluate this is a teams percentage of wins during their regular season.
 </p>
 
 
-# Visual Overview of Notebooks Contained within Repository
+# Repository Overview 
 
-I have sourced all my own data and did not use any premade datasets. All the data collected came from web scraping of various websites. Each set needed quite a bit of code to acquire, and then clean, so this resulted in several notebooks. These notebooks are located in the `notebooks` folder. Each notebook yeilded at least 1 dataframe, which was then pickled. These saved dataframes are located in the `pickled_tables` folder in this repository.
+All the data collected came from web scraping of various websites. The ETL process resulted in several notebooks. These notebooks are located in the `notebooks` folder. Each notebook yielded at least 1 dataframe, which was then pickled. These saved data frames are located in the `pickled_tables` folder in this repository. Reproducibility is an important consideration so, in addition to the pickled data frames, I have exported my current working environment to a file called `environment.yml`; you can find all relevant import data in this file. To create an environment from this `environment.yml` file see conda documentation [HERE](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-from-an-environment-yml-file).
 
-This is an expansive repository so below is an overview of the flow of the notebooks and how they are utilized by the final `Modeling` notebook. For a more detailed summary of each notebook see section "3 - A. Sourcing Data" in the `Modeling` notebook.
+Below is a visual overview of the flow of the notebooks and how they are utilized by the final `Modeling` notebook. For a more detailed summary of each notebook see section "3 - A. Sourcing Data" in the `Modeling` notebook.
 
 <p align="center" width="100%">
 <img src="/images/ss_examples/overview_notebooks.png" alt="overview of how additional notebooks are utilized in final modeling notebook"> 
@@ -36,7 +36,8 @@ This is an expansive repository so below is an overview of the flow of the noteb
 
 
 ## Breakdown of TRAIN and UTILIZE Steps
-The above graphic simplifies the modeling process into **Training** and **Utilizing** the model. The below graphics offer more detail about these two steps. They show what notebooks are used at different parts of these steps, and provide insight as to what information is extracted from each notebook and how it is relevant to the final `Modeling` notebook. 
+
+The above graphic simplifies the modeling process into **Training** and **Utilizing** the model. The below graphics offer more detail about these two steps, show what notebooks are used at different parts of these steps, provide insight as to what information is extracted from said notebooks, and how they are relevant to the final `Modeling` notebook.
 
 <h3 align="center" width="100%">
 Visual Overview of the Model Training Process
@@ -46,7 +47,7 @@ Visual Overview of the Model Training Process
 <img src="/images/ss_examples/train_overview.png" alt="overview of utilizing trained model"> 
 </p>
 
-The above **Training** graphic ends at the Evaluated Model. The below graphic starts with the trained model and shows the steps taken to utilize the model for comparing hypothetical rosters, showing how different combinations of players change a teams projected regular-season-win-percentage. 
+The above **Training** graphic ends with the trained and evaluated Model. The below graphic starts with this trained and evaluated model, then shows the steps taken to utilize the model to predict this season's win percentage and compare it to a fantasy roster's win percentage.
 
 <h3 align="center" width="100%">
 Visual Overview of the Model Utilization Process
@@ -56,9 +57,7 @@ Visual Overview of the Model Utilization Process
 <img src="/images/ss_examples/overview_utilizing_model.png" alt="overview of utilizing trained model"> 
 </p>
 
-# Reproducibility
 
-Reproducibility is an imortant consideration. So, in addition to all the created and used dataframes being pickled, I have exported my current working environment with not only the list of packages used, but also the specific versions of those packages. This file is called `environment.yml`, you can find all relevant import data in this file. [HERE](https://github.com/AgathaZareth/Capstone_Project/blob/main/environment.yml) is the link to view in github. Note: there is a random state seed of 137 in my final `Modeling` notebook.
 
 # Data Understanding
 
@@ -82,272 +81,26 @@ Collegiate Division-1 Player Stats - [TheBaseballCube.com](https://thebaseballcu
 
 
 
-## 3 - A. Sourcing Data
+# Summary of Exploratory Data Analysis of Raw Data
 
-I have sourced all my own data and did not use any premade datasets. All the data collected came from web scraping of various websites. Each set needed quite a bit of code to acquire, and then clean, so this resulted in several notebooks. To better understand my process I have a brief overview of what each notebook contains, below. Each of the below dataframes created from webscraping have been pickled and saved in this repository. 
-
-### 3 A - a. Web Scraping Player Stats
-
-#### 3 A a- i.  Division I Collegiate Player Stats
-
-can be found in the [College_table notebook](https://github.com/AgathaZareth/Capstone_Project/blob/main/notebooks/College_table.ipynb). Here I got a list of Division I colleges from [TheBaseballCube.com](https://thebaseballcube.com). Then using this list I was able to select only division 1 college slugs from [D1Baseball.com](https://d1baseball.com). From there I was able to scrap player hitting stats for 2022 from each division 1 college. 
-
-#### 3 A a - ii.  Triple-A Minor League Player Stats
-
-can be found in the [MiLB_table notebook](https://github.com/AgathaZareth/Capstone_Project/blob/main/notebooks/MiLB_table.ipynb). From [MiLB.com](https://www.milb.com) I first got a list of team id numbers for the triple A teams, then I used those to change url slugs to get player hitting stats. Fortunately, this website defaults to showing qualified players only so the resulting data frame is much smaller because it is already filtered to just the relevant players. 
-
-#### 3 A a - iii.   MLB Player Stats
-
-can be found in the [MLB_5_seasons notebook](https://github.com/AgathaZareth/Capstone_Project/blob/main/notebooks/MLB_5_seasons.ipynb). From [MLB.com](https://www.mlb.com)  I swapped out years and page numbers in url's to get players hitting stats for 5 seasons. 
-
-<p align="center" width="100%">The above 3 mentioned player stats DF's contain the following data</p> 
-
-| Column     | Description   |
-|------------|:--------------|
-| `Team`                  | **Team abbreviation** (or school name) |
-| `Games Played`          | **Games in which a player has appeared.**  |
-| `At Bats`               | **Trips to the plate that do not result in a walk, hit by pitch, sacrifice, or reach on interference.**  |
-| `Runs`                  | **When a baserunner safely reaches home plate and scores.**  |
-| `Hits`                  | **When a batter reaches base safely on a fair ball unless the batter is deemed by the official scorer to have reached on an error or a fielder's choice.**  |
-| `Doubles`               | **When a batter reaches on a hit and stops at second base or only advances farther than second base on an error or a fielder's attempt to put out another baserunner.**  |
-| `Triples`               | **When a batter reaches on a hit and stops at third base or only advances farther than third base on an error or a fielder's attempt to put out another baserunner.**  |
-| `Home Runs`             | **When a batter reaches on a hit, touches all bases, and scores a run without a putout recorded or the benefit of error.**  |
-| `Runs Batted In`        | **Runs which score because of the batter's safe hit, sac bunt, sac fly, infield out or fielder's choice or is forced to score by a bases loaded walk, hit batter, or interference.**  |
-| `Walks`                 | **When a batter is awarded first base after four balls have been called by the umpire or the opposing team opts to intentionally award the batter first base.**  |
-| `Strikeouts`            | **When the umpire calls three strikes on the batter.**  |
-| `Stolen Bases`          | **When the runner advances one base unaided by a hit, a putout, an error, a force-out, a fielder's choice, a passed ball, a wild pitch, or a walk.**  |
-| `Caught Stealing`       | **When a runner attempts to steal but is tagged out before safely attaining the next base.**  |
-| `Batting Average`       | **The rate of hits per at bat against a pitcher. (formula: Hits/At Bats)**  |
-| `On-Base Percentage`    | **The rate at which a batter reached base in his plate appearances. (formula: (H+BB+HBP)/(AB+BB+HBP+SF) )**  |
-| `Slugging Percentage`   | **The rate of total bases per at bat. (formula: (1B+2Bx2+3Bx3+HRx4)/At Bats)**  |
-| `On-Base Plus Slugging` | **The sum of on-base percentage and slugging percentage. (formula: On-Base Percentage+Slugging Percentage)**  |
-| `Year`                  | **Year**  |
-| `Player Name`           | **Player's name**  |
-| `Position`              | **Position of player**  |
-
-
-### 3 A - b.  Web Scraping Game Stats
-
-
-#### 3 A b - i.  MLB Game Stats
-can be found in [Games_by_day notebook](https://github.com/AgathaZareth/Capstone_Project/blob/main/notebooks/Games_by_day.ipynb). Also from [MLB.com](https://www.mlb.com), I collected data on each game of the regular seasons. I was able to create dataframes for each season.
- 
-| Column     | Description   |
-|------------|:--------------|
-| `Day`                  | **Day of the week**  |
-| `Month`                | **Month Abbreviation**  |
-| `Date`                 | **Date of the month**  |
-| `Away`                 | **Away team**  |
-| `Home`                 | **Home team**  |
-| `Win`                  | **Winning team**  |
-| `W Score`              | **Winning teams score**  |
-| `Lose`                 | **Losing team**  |
-| `L Score`              | **Losing teams score**  |
-| _`Year`_               | _**each df was saved by year/season. `year` column was added later, then combined with `Month` and `Date` and converted to YYYY-MM-DD format**_  |
-
-
-### 3 A - c. Creating Team Stats
-
-
-#### 3 A c - i.  MLB Team Stats
-can be found in the [Aggregate_team_stats](https://github.com/AgathaZareth/Capstone_Project/blob/main/notebooks/Aggregate_team_stats.ipynb) notebook. This is where I combined the MLB player and game stats into one df. First, I used the MLB player stats and filtered out players with less than 5 at bats, ie pitchers  who might drive down team averages. Next I found the cumulative totals of the players on a team, as well as their averages ((cumulative totals)/(number of players > 5 at bats)). Secondly, I used MLB game stats to get teams number of wins and losses for each season, to get the win percentage, per team, per season. Finally, I added the win percentages to the aggregated stats table. 
- 
-| Column     | Description   |
-|------------|:--------------|
-| `Team`                      | **Team abbreviation**  |
-| `Year`                      | **Year/Season**  |
-| `Games Played Sum`          | **Cumulative sum of games played.**  |
-| `At Bats Sum`               | **Cumulative sum of trips to the plate that do not result in a walk, hit by pitch, sacrifice, or reach on interference.**  |
-| `Runs Sum`                  | **Cumulative sum of when a baserunner safely reaches home plate and scores.**  |
-| `Hits Sum`                  | **Cumulative sum of when a batter reaches base safely on a fair ball unless the batter is deemed by the official scorer to have reached on an error or a fielder's choice.**  |
-| `Doubles Sum`               | **Cumulative sum of when a batter reaches on a hit and stops at second base or only advances farther than second base on an error or a fielder's attempt to put out another baserunner.**  |
-| `Triples Sum`               | **Cumulative sum of when a batter reaches on a hit and stops at third base or only advances farther than third base on an error or a fielder's attempt to put out another baserunner.**  |
-| `Home Runs Sum`             | **Cumulative sum of when a batter reaches on a hit, touches all bases, and scores a run without a putout recorded or the benefit of error.**  |
-| `Runs Batted In Sum`        | **Cumulative sum of runs which score because of the batter's safe hit, sac bunt, sac fly, infield out or fielder's choice or is forced to score by a bases loaded walk, hit batter, or interference.**  |
-| `Walks Sum`                 | **When a batter is awarded first base after four balls have been called by the umpire or the opposing team opts to intentionally award the batter first base.**  |
-| `Strikeouts Sum`            | **Cumulative sum of when the umpire calls three strikes on the batter.**  |
-| `Stolen Bases Sum`          | **Cumulative sum of when the runner advances one base unaided by a hit, a putout, an error, a force-out, a fielder's choice, a passed ball, a wild pitch, or a walk.**  |
-| `Caught Stealing Sum`       | **Cumulative sum of when a runner attempts to steal but is tagged out before safely attaining the next base.**  |
-| `Mean Games Played`         | **Average number of Games played.**  |
-| `Mean At Bats`              | **Average number of trips to the plate that do not result in a walk, hit by pitch, sacrifice, or reach on interference**  |
-| `Mean Runs`                 | **Average number of runs when a baserunner safely reaches home plate and scores .**  |
-| `Mean Hits`                 | **Average number of times when a batter reaches base safely on a fair ball unless the batter is deemed by the official scorer to have reached on an error or a fielder's choice.**  |
-| `Mean Doubles`              | **Average number of times when a batter reaches on a hit and stops at second base or only advances farther than second base on an error or a fielder's attempt to put out another baserunner.**  |
-| `Mean Triples`              | **Average number of times when a batter reaches on a hit and stops at third base or only advances farther than third base on an error or a fielder's attempt to put out another baserunner.**  |
-| `Mean Home Runs`            | **Average number of times a batter reaches on a hit, touches all bases, and scores a run without a putout recorded or the benefit of error.**  |
-| `Mean Runs Batted In`       | **Average number of runs which score because of the batter's safe hit, sac bunt, sac fly, infield out or fielder's choice or is forced to score by a bases loaded walk, hit batter, or interference.**  |
-| `Mean Walks`                | **Average number of times a batter is awarded first base after four balls have been called by the umpire or the opposing team opts to intentionally award the batter first base.**  |
-| `Mean Strikeouts`           | **Average number of times when the umpire calls three strikes on the batter.**  |
-| `Mean Stolen Bases`         | **Average number of times when the runner advances one base unaided by a hit, a putout, an error, a force-out, a fielder's choice, a passed ball, a wild pitch, or a walk.**  |
-| `Mean Caught Stealing`      | **Average number of times when a runner attempts to steal but is tagged out before safely attaining the next base.**  |
-| `% wins`      | **The percentage of wins of regular season games.**  |
-
-
-# 4. Notebook Setup
-
-## 4 - A. Imports
-
-Reproducibility is an imortant consideration. So, in addition to all the created and used dataframes being pickled, I have exported my current working environment with not only the list of packages used, but also the specific versions of those packages. This file is called `environment.yml`, you can find all relevant import data [HERE](https://github.com/AgathaZareth/Capstone_Project/blob/main/environment.yml). In this section of my notebook I have also set a random state seed of 137.
-
-
-## 4 - B. Functions
-
-I like to put anything that is used more than once into a function to avoid the copy-past look of the notebook. Additionally, this keeps the flow of the notebook smoother and just generally cleaner looking. I will not list out all the functions I created here in the read me, see this section, 4-B, in the [Modeling notebook](https://github.com/AgathaZareth/Capstone_Project/blob/main/notebooks/Modeling.ipynb) if needeed. 
-
-
-# 5. Data Understanding
-
-The data comes from web scraping [MLB.com](https://www.mlb.com/stats/). I took the last 5 years of players hitting stats over regular seasons and cumulated them into team stats. I also took game details to determine team win percentages per season. To avoid collinearity issues down the line I only added statistics that did not have any direct relationship to other stats, i.e. I did not include things that already combined other stats. For example, batting average combines `hits` and `at bats` so I included hits and at bats but left out batting average. Any player stats with a formula was left out. 
-
-
-## 5 - A. Load raw data
-
-In this section I load the data frame created in the [Aggregate_team_stats](https://github.com/AgathaZareth/Capstone_Project/blob/main/notebooks/Aggregate_team_stats.ipynb) notebook. See above section `3Ac-i. MLB Team Stats`, for list of column names and descriptions.
-
-
-# 6. Exploratory Data Analysis of Raw Data
-
-It is important to look at data before making any assumptions. I think linear regression is a good modeling option based on the problem but it would be erroneous to move forward without some type of data check. The goal is to establish if there is a linear relationship between the different statistics and a teams win percentage. I also need to check if there are any correlations between the independent variables themselves. Exploratory data analysis can also help identify outliers and determine weather appropriate to remove or leave as they are. 
-
-
-## 6 - A. Drop unnecessary columns
-
-I do not want the model looking for trends in the `Year` or `Team` features so these need to be dropped. 
-
-
-## 6 - B.  Identify target feature -  `% wins`
-
-This is just for convenience as I move through the notebook.
-
-
-## 6 - C. EDA basics
-
-
-### 6 C - a. Check shape
-
-Here I can see my data has 150 rows (datapoints) and 25 columns (24 independent variables and target variable)
-
-### 6 C - b. Check for nulls
-
-There are zero null or missing values in this df.
-
-### 6 C - c. Check info
-
-pandas.DataFrame.info method prints information about a DataFrame including the index dtype and columns, non-null values and memory usage.
-
-<p align="center" width="100%">
-<img src="/images/ss_examples/raw_df_info.png" alt="raw data dot info printout">
-    
-<img src="/images/ss_examples/check_info_notes.png" alt="blue note box: There are no missing values, however, the above shows all the independent variables are strings; they need to be converted to numeric values">    
-</p>
-
-
-
-#### 6 C  c - i. Convert Dtypes
-
-I do a blanket conversion of the entire df since all features, independent and dependent, need to be float64.
-
-<p align="center" width="100%">
-<img src="/images/ss_examples/converted_to_floats_info.png" alt="raw data converted to floats dot info printout">
-    
-<img src="/images/ss_examples/success_dtypes_floats.png" alt="green success box: All Dtypes are now floats.">    
-</p>
-
-
-
-### 6 C - d. Distribution of values
-An important consideration when using multiple predictors in any machine learning model is the scale of these features. 
-
-
-#### 6 C d - i. Check describe
-
-I will use pandas.DataFrame.describe to generate descriptive statistics. Descriptive statistics include those that summarize the central tendency, dispersion and shape of a dataset’s distribution, excluding NaN values.
-
-- The count of not-empty values
-- The average (mean) value
-- The standard deviation
-- the minimum value
-- The 25% percentile
-- The 50% percentile
-- The 75% percentile
-- the maximum value
-
-I will transpose it for easier viewing.
-
-<p align="center" width="100%">
-<img src="/images/ss_examples/raw_describe.png" alt="raw data dot describe">
-
-<img src="/images/ss_examples/check_describe_notes.png" alt="blue note box: A quick scroll down the mean, min, & max columns I can see there is a huge range in each of the independent features. Variables of vastly different scales can impact the influence over the model. To avoid this, it is best practice to normalize the scale of all features before feeding the data into a machine learning algorithm. I will need to standardize my data so the features with larger numeric values are not unfairly weighted by the model. To avoid any potential data leakage, I will first split the data before altering it in any way.">
-
-</p>
-
-
-
-#### 6 C d - ii. Plot distributions of each feature
-
-When deciding which method to use when scaling, it can be helpful to understand the distribution of values so I want to do a quick histogram plot of each feature. I will use seaborn.histplot for this, documentation [HERE](https://seaborn.pydata.org/generated/seaborn.histplot.html). Presumably, the split data will have similar distributions. If I wanted to be extremely careful I could view distributions AFTER I split but in this particular case I think it is fine to view now. `hist_grid` function used below.
+An important consideration when using multiple predictors in any machine learning model is the scale of these features. `pandas.DataFrame.describe` shows a huge range in each of the independent features. Variables of vastly different scales can impact the influence over the model, therefore, it is best practice to normalize the scale of all features before feeding the data into a machine learning algorithm. This will ensure the features with larger numeric values are not unfairly weighted by the model. When deciding which method to use when scaling, it can be helpful to understand the distribution of values. 
 
 <p align="center" width="100%">
 <img src="/images/ss_examples/raw_data_distribution_of_values.png" alt="histogram thumbnail tiles of each feature">
 
-<img src="/images/ss_examples/blue_note_box_raw_histo_tiles.png" alt="blue note box: Most features have a roughly normal distribution. I don't see any extreme skewness that might justify loggin a variable.">
+<img src="/images/ss_examples/blue_note_box_raw_histo_tiles.png" alt="blue note box: Most features have a roughly normal distribution. I don't see any extreme skewness that might justify logging a variable.">
 
 </p>
 
 
 
-# 7. Preprocessing
+# Summary of Preprocessing
 
+To avoid any potential data leakage, I did a train test split before altering the data in any way.`sklearn.model_selection.train_test_split` (documentation [HERE](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html))
 
-## 7 - A. Train Test Split
+## Scale Data
 
-Use `sklearn.model_selection.train_test_split` (documentation [HERE](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html)) to create a train and test set. I will withhold 20% of data from the models learning-data, then use that 20% to test and evaluate my models performance.
-
-### 7 A - a. Separate data into features and target
-
-### 7 A - b. Split data into train and test sets
-```
-
-X_train has a shape of: (120, 24)
-y_train has a shape of: (120,)
-
-X_test has a shape of: (30, 24)
-y_test has a shape of: (30,)
-
-```
-
-## 7 - B. Scale Data
-
-Feature scaling is a method used to normalize the range of the independent variables of data. A machine learning algorithm can only see numbers; this means, if there is a vast difference in the feature ranges (as there is with this data, demonstrated in step 4f) it makes the underlying assumption that higher ranging numbers have superiority of some sort and these more significant numbers start playing a more decisive role while training the model. Therefore, feature scaling is needed to bring every feature on the same footing.
-
-**Standardization**
-
-Feature standardization makes the values of each feature in the data have zero mean and unit variance. The general method of calculation is to determine the distribution mean and standard deviation for each feature and calculate the new data point by the following formula:
-
-$$x' = \dfrac{x - \bar x}{\sigma}$$
-
-x' will have mean $\mu = 0$ and $\sigma = 1$
-
-Note that standardization does not make data $more$ normal, it will just changes the mean and the standard error!
-
-**Normalization**
-- Min-max scaling
- - This way of scaling brings all values between 0 and 1. 
- 
-$$x' = \dfrac{x - \min(x)}{\max(x)-\min(x)}$$
-
-
-- Mean normalization
- - The distribution will have values between -1 and 1, and a mean of 0.
- 
-$$x' = \dfrac{x - \text{mean}(x)}{\max(x)-\min(x)}$$
-
-- You can bound your normalization range by any interval `[a,b]` with
-
-$$x' = a + \dfrac{(x - \min(x))(b - a)}{\max(x)-\min(x)}$$
-
-
----
+`sklearn.preprocessing.StandardScaler` default standardization (documentation [HERE](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html)). Feature scaling is a method used to normalize the range of the independent variables of data. A machine learning algorithm can only see numbers; this means, if there is a vast difference in the feature ranges (as there is with this data, demonstrated in 'Summary of Exploratory Data Analysis of Raw Data') it makes the underlying assumption that higher ranging numbers have superiority of some sort and these more significant numbers start playing a more decisive role while training the model. 
 
 Choosing which method to use depends on the distribution of your data.  A couple of relevant generalizations are: 
 
@@ -355,36 +108,11 @@ Choosing which method to use depends on the distribution of your data.  A couple
 - Impact of Outliers is very high in Normalization
 
 
-
-### 7 B - a. Scale and create new scaled dfs
-
-Because my data is normally distributed I will use `sklearn.preprocessing.StandardScaler` default standardization (documentation [HERE](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html)):
-
-$$z = (x - u) / s$$
-
-Where u is the mean of the training samples, and s is the standard deviation of the training samples. 
+### Explore the Scaling Effect on Training Data
 
 
-### 7 B - b. Explore the scaling effect on training data
-
-#### 7 B b - i. Check `X_train_scaled` describe
-
-
-<p align="center" width="100%">
-<img src="/images/ss_examples/scaled_describe.png" alt="dot describe df of scaled data">
-
-<img src="/images/ss_examples/scaled_describe_notes.png" alt="blue note box: Now that the df has been scaled this .describe() method is less useful. A visualization will explain the transformation better.">
-
-</p>
-
-
-
-#### 7 B b - ii. Visualizations
-pandas.DataFrame.describe method is great but it fails to truely convey how the data is transformed by scaling. The best way to view this change is with boxplots and histograms. 
-
-##### 7 B b ii - 1. boxplots
-seaborn.boxplot show the minimum, first quartile, median, third quartile, and maximum of features, documentation [HERE](https://seaborn.pydata.org/generated/seaborn.boxplot.html).
-Boxplots are a great way to see the change in the range of each independent feature before and after standard scaling. `boxplots` function used below.
+#### Boxplots
+Boxplots (documentation [HERE](https://seaborn.pydata.org/generated/seaborn.boxplot.html)) are a great way to see the change in the range of each independent feature before and after standard scaling. 
 
 
 <p align="center" width="100%">
@@ -394,8 +122,8 @@ Boxplots are a great way to see the change in the range of each independent feat
 
 </p>
 
-##### 7 B b ii - 2. histograms
-An additional way to view the scaling effect is through histograms. If you think of boxplots as a top view of distributions, then you can think of histograms as a side view. Imagine yourself standing on the right hand side of the above boxplots looking down the 0 line. `hist_overlay` function used below.
+#### Histograms
+An additional way to view the scaling effect is through histograms (documentation [HERE](https://seaborn.pydata.org/generated/seaborn.histplot.html)). If you think of boxplots as a top view of distributions, then you can think of histograms as a side view. Imagine yourself standing on the right hand side of the above boxplots looking down the 0 line. 
 
 <p align="center" width="100%">
 <img src="/images/ss_examples/histos_before_scaling.png" alt="histograms of data BEFORE scaling">
@@ -406,13 +134,11 @@ An additional way to view the scaling effect is through histograms. If you think
     
 </p>
 
-## 7 - C. Feature Reduction
 
-Before moving on I want to regplot all the independent variables. The first 12 features are cumulative totals of team stats and the second 12 are those same stats but divided by the number of players to get the mean. If I use both, the cumulative totals and the averages, there will be a lot of multicollinearity. Multicollinearity occurs when two or more independent variables are highly correlated with one another, and as you can imagine using one statistic to acquire the other would have a high correlation. So I need to make a choice on which set to use. 
+# Summary of Feature Reduction
+## Regplots
 
-
-### 7 C - a. Regplots
-Use regplots to show me which features have a 'cleaner' linear relationship with target variable. This method is used to plot data and a linear regression model fit. There are a number of mutually exclusive options for estimating the regression model see documentation [HERE](https://seaborn.pydata.org/generated/seaborn.regplot.html). `regplot_grid` function used below.
+Now that data is scaled I can use regplots (documentation [HERE](https://seaborn.pydata.org/generated/seaborn.regplot.html)) to view if there is a linear relationship between the different statistics and a teams win percentage, and to show which features have a 'cleaner' linear relationship with target variable.  
 
 <p align="center" width="100%">
 <img src="/images/ss_examples/regplot_all_feats.png" alt="regplots of all 24 independent variables">
@@ -421,22 +147,19 @@ Use regplots to show me which features have a 'cleaner' linear relationship with
     
 </p>
 
-### 7 C - b. Heatmaps
+## Heatmaps
 
-The regplots show the relationship between the features and target variable. The heatmap will show the  correlations between all of the numeric values (in this case, all the features) in our data. The x and y axis labels indicate the pair of values that are being compared, and the color and the number are both representing the correlation. Color is used here to make it easier to find the largest/smallest numbers. The bottom row is particularly important because it shows all the features correlation with the target variable but I am also looking for strong correlation between the independent variables. Documentation [HERE](https://seaborn.pydata.org/generated/seaborn.heatmap.html). `heatmap` function used below.
-
-#### 7 C b - i. Set up for heatmap plots
-Converting `train_scaled` and `test_scaled` to a pandas df reset the indices. I now need to convert `y_train` and `y_test` to a pandas df and reset the indices so I can concat `train_scaled` and `y_train` to create a visualization df. 
+The regplots show the relationship between the features and target variable. The heatmap (documentation [HERE](https://seaborn.pydata.org/generated/seaborn.heatmap.html)) will show the correlations between all of the numeric values (in this case, all the features) in our data. The x and y axis labels indicate the pair of values that are being compared, and the color and the number are both representing the correlation. Color is used here to make it easier to find the largest/smallest numbers. The bottom row is particularly important because it shows all the features correlation with the target variable but I am also looking for strong correlation between the independent variables.  
 
 
-##### 7 C b i - 1. Heatmap - cumulative features
+### Heatmap of Cumulative Features
 
 <p align="center" width="100%">
 <img src="/images/ss_examples/heatmap_cumulative.png" alt="heatmap of the 12 cumulative independent variables and the target variable">
     
 </p>
 
-##### 7 C b i - 2. Heatmap - averaged features
+### Heatmap of Averaged Features
 
 <p align="center" width="100%">
 <img src="/images/ss_examples/heatmap_averaged.png" alt="heatmap of the 12 averaged independent variables and the target variable">
@@ -445,7 +168,7 @@ Converting `train_scaled` and `test_scaled` to a pandas df reset the indices. I 
     
 </p>
 
-### 7 C - c. Selecting Features to Drop
+## Selecting Features to Drop
 
 Based on the Heatmap and Regplots I will *keep* the cumulative sum features. I need to eliminate the highly correlated features while keeping as much data as possible. This means I need to remove the least amount of features possible. `Runs Sum` has the highest correlation with `% wins` so I want to keep this feature. 
 
@@ -455,7 +178,7 @@ Based on the Heatmap and Regplots I will *keep* the cumulative sum features. I n
     
 </p>
 
-By eliminating `Hits Sum` & `Runs Batted In Sum` I can remove all the pairs with a correlation of .9 or greater. This leaves:
+By eliminating `Hits Sum` & `Runs Batted In Sum` I remove all the pairs with a correlation of .9 or greater. This leaves:
 - `Games Played Sum`
 - `At Bats Sum`
 - `Runs Sum`
@@ -471,15 +194,8 @@ By eliminating `Hits Sum` & `Runs Batted In Sum` I can remove all the pairs with
 **Note: this is likely not a comprehensive selection of features to be eliminated.* 
 
 
-### 7 C - d. Drop Features
-Create reduced dfs from `X_test_scaled` & `X_train_scaled`
-
-New variables 
-- `X_train_s_r`: "X_train, scaled, and reduced"
-- `X_test_s_r`: "X_test, scaled, and reduced"
-
-#### 7 C d - i. Pairplot
-The final visualization to check inter feature correlation is a pairplot. Pairplots are great ways to see the relationship between two features using scatter plots. Pariplots also show the distribution of each feature across the diagonal. This has already  been plotted but here we can see just the features I have decided to keep.
+## Pairplot
+The final visualization to check inter feature correlation is a pairplot (documentation [HERE](https://seaborn.pydata.org/generated/seaborn.pairplot.html)). Pairplots are great ways to see the relationship between two features using scatter plots. Pariplots also show the distribution of each feature across the diagonal. These histograms have already been plotted but here we can see just the features I have decided to keep.
 
 <p align="center" width="100%">
 <img src="/images/ss_examples/pairplot.png" alt="pairplot of remaining independent variables and target feature">
@@ -488,39 +204,46 @@ The final visualization to check inter feature correlation is a pairplot. Pairpl
     
 </p>
 
-## 7 - D. Investigate Outliers
 
-Removing outliers can reduce the errors (or residuals) of a model. However, not all outliers should be removed, and Jim, from *Statistics By Jim*, perfectly states in [Guidelines for Removing and Handling Outliers in Data](https://statisticsbyjim.com/basics/remove-outliers/), "It’s bad practice to remove data points simply to produce a better fitting model or statistically significant results." 
-There are other ways to deal with outliers than to do a blanketed removal. The most common is logging. Before deciding to add more complexity to my model by logging features, I need to investigate where these outliers are, and how many? Is the complexity worth it for a few data points? `boxplots` function used below.
-
-
-<p align="center" width="100%">
-<img src="/images/ss_examples/outliers_boxplot.png" alt="boxplot of 10 remaining independent variables">
-    
-<img src="/images/ss_examples/notes_outlier_boxplots.png" alt="blue note box: Only 4 features have outliers and it looks like they each have only 1.">
-    
-</p>
-
-I will check the number of outliers by using the `print_outliers` function. This will identify outliers from a column based on zscore. If 3 standard deviations away from mean the data point is considered an outlier. 
-
-```
-
-Triples Sum has 1 outlier(s)
-Caught Stealing Sum has 1 outlier(s)
-
-```
+---
+---
 
 
-<p align="center" width="100%">    
-<img src="/images/ss_examples/investigate_outlier_notes.png" alt="blue note box: These outliers are likely due to natural variation but my sample size is relatively low. Yes it covers 5 year of data but each season only has 24 teams i.e. data points. I think If I were able to increase my sample size, these outliers would fall within the typical gaussian bell curve.">
-    
-</p>
 
-# 8. Linear Regression Modeling - Scaled Data
+# Linear Regression Modeling - Scaled Data
 
-## 8 - A. Build baseline and final model
+## Build Baseline and Final model
 
 This is all wrapped up in a beautiful function that creates a baseline model by determining the highest positively correlated feature with `% wins`. Then it iteratively adds features based on the features p value. See `build_models` docstring for more info. 
+
+Determines highest correlated feature, creates and prints a baseline
+    model using `model_it_small` function. 
+    
+    From there it determines the features not used in baseline model (or 
+    current model), and checks p values of each feature, individually added 
+    to base model. From said features, it determines the lowest p value.
+    If that lowest p value is under 0.05 the associated feature is added to 
+    the current model df and the process is repeated until there are no features
+    that can be added, ie all p values are above 0.05, or all features have been 
+    used.
+    
+    It then prints/returns `model_it_small` of all features with pvalues
+    less than 0.05. 
+    
+    Output
+    ----------
+    Histogram of distribution of residuals
+    
+    QQ plot
+    
+    Prints r-squared and adjusted r-squared from statsmodel,
+        and kfold crossvalidation with 5 splits
+    
+    
+    Returns
+    ----------
+    Second half of .summary() table (coefficients, std error, t, p, and 
+        ci values)
 
 
 <p align="center" width="100%">    
