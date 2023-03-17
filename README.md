@@ -115,233 +115,7 @@ RMSE :  5.812752574210284
     
 </p>
 
-# Can Lasso or Ridge Regression Improve Predictive Capabilities?
 
-Now that I have my Linear Regression model for interpretability, I can try to boost the predictive capacity by using Lasso and Ridge regression. Both are regularization techniques, one performing L1 regularization, and the other L2. 
-
-Lasso Regression performs L1 regularization. L1 regularization takes the *absolute values* of the weights, so the cost only increases linearly. Lasso uses shrinkage, i.e. data values shrink towards a central point as the mean. 
-
-Ridge Regression performs L2 regularization. L2 regularization takes the *square* of the weights, so the cost of outliers increases exponentially. Ridge regression is good to use if there is multicollinearity between the features of your data. When issues of multicollinearity occur, least-squares are unbiased, and variances are large, this results in predicted values being far away from the actual values. 
-
-
-## Get RMSE's for *all* Features
-Use entire `X_train` (all features) to check different RMSE's with 3 different models.
-
-```
-
-RidgeCV() rmse:			6.073710918791899
-LassoCV() rmse:			6.0315888246948015
-LinearRegression() rmse:	6.600711237023368
-
-```
-
-
-## Plot Optimal Alphas (lambdas)
-
-This is more of a brute force approach, rather than trusting the automatic alpha selection, I want to check a range of alphas and plot the MSE for each. Then I will compare the RMSE metrics to see if there is any improvement. If not I will use the auto-selected alpha value. 
-
-*Original code for plots can be found [HERE](https://github.com/learn-co-curriculum/dsc-ridge-and-lasso-regression-lab/tree/solution#finding-an-optimal-alpha) from "Ridge and Lasso Regression - Lab" solution branch*
-
-
-### Lasso
-
-<p align="center" width="100%">
-    
-<img src="/images/ss_examples/lasso_plot_alpha.png" alt="plot of alpha values and mean squared errors for train and test data using lasso regression. Optimal alpha determined by the point at which the train and test MSE's are closest.">
-    
-</p>
-
-
-### Ridge
-
-<p align="center" width="100%">
-    
-<img src="/images/ss_examples/ridge_plot_alpha.png" alt="plot of alpha values and mean squared errors for train and test data using ridge regression. Optimal alpha determined by the point at which the train and test MSE's are closest.">
-    
-</p>
-
-### Test optimal alphas from plots
-
-Lasso alpha = 0
-```
-6.545520231720073
-```
-
-Ridge alpha = 8
-```
-6.074428900049834
-```
-
-<p align="center" width="100%">
-    
-<img src="/images/ss_examples/plot_alphas_notes.png" alt="blue note box: There is no improvement using a manual search. I will stick to the automatically selected values.">
-    
-</p>
-
-
-
-## Get Additional RMSE's Comparisons
-
-Reduce `X_train` to just the cumulative features to see if there is an improvement.
-- `Hits Sum`, 
-- `Runs Batted In Sum`
-- `Games Played Sum`
-- `At Bats Sum`
-- `Runs Sum`
-- `Doubles Sum`
-- `Triples Sum`
-- `Home Runs Sum`
-- `Walks Sum`
-- `Strikeouts Sum`
-- `Stolen Bases Sum`
-- `Caught Stealing Sum`
-
-```
-
-RidgeCV() rmse:			6.048666345049738
-LassoCV() rmse:			5.84469104287651
-LinearRegression() rmse:	6.000390901490906
-
-```
-
-Reduce `X_train` to just the cumulative features left AFTER heatmap cuts.
-- `Games Played Sum`
-- `At Bats Sum`
-- `Runs Sum`
-- `Doubles Sum`
-- `Triples Sum`
-- `Home Runs Sum`
-- `Walks Sum`
-- `Strikeouts Sum`
-- `Stolen Bases Sum`
-- `Caught Stealing Sum`
-
-```
-
-RidgeCV() rmse:			6.0598572600893785
-LassoCV() rmse:			5.866461018913089
-LinearRegression() rmse:	6.076677429513871
-
-```
-
-Reduce `X_train` to just the features that made it into the final Linear Regression model.
-- `Runs Sum`
-- `Walks Sum`
-- `Strikeouts Sum`
-
-```
-
-RidgeCV() rmse:			5.816366647123051
-LassoCV() rmse:			5.814338819118407
-LinearRegression() rmse:	5.812752574210284
-
-```
-
-Reduce `X_train` to just the one most correlated feature to `% wins` 
-- `Runs Sum`
-
-```
-
-RidgeCV() rmse:			6.373948545890253
-LassoCV() rmse:			6.3756014274341855
-LinearRegression() rmse:	6.375864829436179
-
-```
-
-
-<p align="center" width="100%">
-    
-<img src="/images/ss_examples/get_additional_rmses_notes2.png" alt="blue note box: There is too much noise with other features added to improve the error of the model. All 3 models performed best with just the 3 features used in Linear Regression final model, with Lasso Regression using all 12 cumulative features coming in a very close 4th place. Ultimatly, Linear Regression model with the 3 feats had lowest error.
-CONCLUSION: Linear Regression model with 3 features - Runs Sum, Walks Sum, Strikeouts Sum - is the best model for both predictive and inferential purposes.">
-    
-</p>
-
-
-# Linear Regression Final Model Assumption Checks
-
-Regression is a powerful analysis however, if some of the necessary assumptions are not satisfied, regression makes biased and unreliable predictions. Below I check the following 4 assumptions:
-- Independence Assumption
-- Linearity Assumption
-- Homoscedasticity Assumption
-- Normality Assumption
-
-I give brief explanations of these assumption checks at each header but you can also visit:
-- [HERE](https://github.com/learn-co-curriculum/dsc-regression-assumptions#about-regression-assumptions) for a short summary of Linearity, Homoscedasticity, and Normality Assumptions. 
-
-## Independence Assumption
-
-Because I am using this model for both inferential and predictive purposes I need to ensure that each observation is independent of the others. A violation of the independence assumption results in incorrect confidence intervals and p-values, it can essentially be thought of as a kind of double-counting in the model and it can produce estimates of the regression coefficients that are not statistically significant. 
-
-This article ["How to detect and deal with Multicollinearity"](https://towardsdatascience.com/how-to-detect-and-deal-with-multicollinearity-9e02b18695f1) does a really good job of explaining the differences between using correlations vs VIF, 
-
->A correlation plot can be used to identify the correlation or bivariate relationship between two independent variables whereas VIF is used to identify the correlation of one independent variable with a group of other variables. Hence, it is preferred to use VIF for better understanding.
->
->- VIF = 1 → No correlation
->- VIF = 1 to 5 → Moderate correlation
->- VIF >10 → High correlation
-
-Below I check the correlation between the 3 independent features that made it into the model. I do this using the function `collinearity_pairs` which returns pandas.DataFrame of pairs of features with correlations between .75 and 1. 
-
-<p align="center" width="100%">
-<img src="/images/ss_examples/corr_pairs.png" alt="pairs of independent variables with more than .75 correlation.">
-    
-<img src="/images/ss_examples/collinearity_pairs_notes.png" alt="blue note box: You can see that `Runs Sum` and `Walks Sum` have a Pearson's correlation of 0.8127. As stated above this is just a measurement of the two features with each other and not a measure of each independent variable with the group of other variables in the model. So while it is interesting to see this correlation is so high, it does not tell me much about how these two variables might impact my models inferential capabilities.">
-    
-</p>
-
-
-Variance inflation factor is a measure of the degree of multicollinearity or correlation between the independent variables in your multiple linear regression analysis. The rules of thumb are listed above. Statsmodels has a VIF function, [statsmodels.stats.outliers_influence.variance_inflation_factor](https://www.statsmodels.org/dev/generated/statsmodels.stats.outliers_influence.variance_inflation_factor.html), and states, 
-
->One recommendation is that if VIF is greater than 5, then the explanatory variable given by exog_idx is highly collinear with the other explanatory variables, and the parameter estimates will have large standard errors because of this.
-
-Based on this and the above rule of thumbs, I have a function `get_VIFs_above5` that does exactly as it sounds, it returns any feature with an VIF above 5.
-
-
-<p align="center" width="100%">
-
-<img src="/images/ss_examples/green_VIF_notes.png" alt="green success box: Nothing returned, this means there are no features that have a VIF above 5. The assumption of independence is satisfied">
-    
-</p>
-
-
-## Linearity Assumption
-
-The linearity assumption requires that there is a linear relationship between the response variable (Y) and predictor (X). Linear means that the change in Y by 1-unit change in X, is constant. If you were to try to fit a linear model to a non-linear data set, OLS would fail to capture the trend mathematically, resulting in an inaccurate relationship. This will also result in erroneous predictions on an unseen data set.
-
-<p align="center" width="100%">
-
-<img src="/images/ss_examples/regplots_3_feats.png" alt="regplots of three features that made it into final model.">
-    
-<img src="/images/ss_examples/linearity_assumption_notes.png" alt="green success box: The three features show varying degrees of a linear relationship with the target feature. The assuption of linearity is satisfied.">
-    
-</p>
-
-
-
-## Homoscedasticity Assumption
-
-Homoscedasticity indicates that a dependent variable's variability is equal across values of the independent variable. A scatter plot is a good way to check whether the data are homoscedastic (meaning the residuals are equal across the regression line). 
-
-<p align="center" width="100%">
-
-<img src="/images/ss_examples/residuals_vs_predicted.png" alt="scatter plot of residuals vs predicted y values.">
-    
-<img src="/images/ss_examples/homoscedasticity_assumption_notes.png" alt="green success box: The scatter plot of residuals do not show any kind of pattern and are equally distributed. The assumption of homoscedasticity is satisfied.">
-    
-</p>
-
-## Normality Assumption
-
-The normality assumption states that the model residuals should follow a normal distribution. This can be viewed with either a histogram or a QQ Plot of the residuals. I prefer to use both to fully understand the distribution. 
-
-
-<p align="center" width="100%">
-
-<img src="/images/ss_examples/histo_qq_resids.png" alt="histogram and qq plot of residuals.">
-    
-<img src="/images/ss_examples/normality_assumption_notes.png" alt="green success box: The histogram and qq plots show the resdiuals have a roughly normal distribution. The assumption of normality is satisfied.">
-    
-</p>
 
 # Interpreting Linear Regression Model Results
 
@@ -430,11 +204,7 @@ Below is a df of an example of 3 recruitment recommendations based on the above 
     
 <img src="/images/ss_examples/RSO_top_3.png" alt="df of an example of 3 recruitment recommendations based on the above mentioned difference between `Runs` and `Strikeouts`.">
     
-<img src="/images/ss_examples/blue_recruitment_notes2.png" alt="blue note box: From the web scrapped minor league qualified players, these three players have the highest number of `Runs` after `Strikeouts` are removed. They will likely have the most significant positive impact on a team's win percentage. Note this is a simplified version of selecting players intended only to demonstrate how the model can be used to show the impact of a roster change on a team's win percentage.
-   
-It may be beneficial to consolidate players' stats from all the minor league teams they have played on, but without extensive knowledge of all the players, it would be dangerous to run a similar code as above that used players names to consolidate stat, as there may be players with the same name. If that knowledge were made available to me I could go back and scrap minor stats WITHOUT limiting the player pool to 'qualified players only' then consolidate a players stats into one annual total (including all minor league teams a player has on).  
-   
-Furthermore, it would be most impactful to select the 3 player stats from the model and multiply each relevant stat by its converted coeff, aggregate the three stats to get the exact impact a player will have on a teams win percentage, then rank from most significant to least.">
+<img src="/images/ss_examples/blue_recruitment_notes2.png" alt="blue note box: From the web scrapped minor league qualified players, these three players have the highest number of `Runs` after `Strikeouts` are removed. They will likely have the most significant positive impact on a team's win percentage. Note this is a simplified version of selecting players intended only to demonstrate how the model can be used to show the impact of a roster change on a team's win percentage. It may be beneficial to consolidate players' stats from all the minor league teams they have played on, but without extensive knowledge of all the players, it would be dangerous to run a similar code as above that used players names to consolidate stat, as there may be players with the same name. If that knowledge were made available to me I could go back and scrap minor stats WITHOUT limiting the player pool to 'qualified players only' then consolidate a players stats into one annual total (including all minor league teams a player has on). Furthermore, it would be most impactful to select the 3 player stats from the model and multiply each relevant stat by its converted coeff, aggregate the three stats to get the exact impact a player will have on a teams win percentage, then rank from most significant to least.">
     
 </p>
 
@@ -489,46 +259,25 @@ To put these win % predictions into perspective, I created a dataframe with worl
 
 ### P Values and confidence intervals
 
-Up until this point p-values have been the primary focus, with all features included or excluded in or from the model based on this value, more specifically, in this case, the threshold of 0.05 or greater. In the summary report, p-values are in the column `P > |t|` and rounded to 3 digits. 
-
-Applied to a regression model, p-values associated with coefficient estimates indicate the probability of observing the associated coefficient given that the null-hypothesis is true. In this case the null hypothesis is:
-There is NO relationship between the associated coefficient - "a teams cumulative runs", "a teams cumulative walks", and "a teams cumulative strikeouts" - and the the teams percentage of wins in their regular season games. 
-This null hypothesis can be rejected when the p value is below 0.05.  
-
-Rejecting the null hypothesis at an alpha level of 0.05 is the equivalent for having a 95% confidence interval around the coefficient that does not include zero. The confidence intervals are in the two last columns to the right of `P > |t|`, in this case it is 95%, derived from the shown range `[0.025 0.975]`. Using `Runs Sum` as an example: The confidence interval for `Runs Sum` is [4.373, 7.194] meaning that there is a 95% chance that the actual coefficient value is in that range. Note this is why it is important this range does not span 0, this would indicate an uncertainty of having either a positive or negative correlation, it can't be both.
-
-As the measurement of how likely a coefficient is measured by our model through chance, p-values are undoubtedly important, however, they are not the only important metric when analyzing the statsmodel summary report.
+All p values are below .05, and all confidence intervals do not span zero.
 
 ### R squared
 
-R-squared is the measurement of how much of the independent variable is explained by changes in our dependent variables. In this case, the r squared value of 0.727 tells us: 
-
-**This final linear regression model is able to explain 72.7% of the variability observed in regular season percentage of wins.** 
-        
-Because r squared will always increase as features are added (in this case 3 as shown in 'Df Model:' on the summary report) we should also look at the adjusted r squared to get a better understanding of how the model is performing.
+This final linear regression model is able to explain 72.7% of the variability observed in regular season percentage of wins.
 
 ### Adjusted R squared
 
-Adjusted r squared takes into account the number of features in the model by penalizing the R-squared formula based on the number of variables. If the two were significantly different it could be that some variables are not contributing to your model’s R-squared properly. In this case:
-
-**The adjusted r squared is essentially the same as the r squared, just 0.7% difference, so we can be confident, as stated above, in the 72.7% reliability of this model.**
+The adjusted r squared is essentially the same as the r squared, just 0.7% difference, so we can be confident, as stated above, in the 72.7% reliability of this model.
 
 ###  F statistic and Prob(f-statistic)
-
-The f statistic is also important. More easily understood is the prob(f-statistic), it uses the F statistic to tell the accuracy of the null hypothesis, or whether it is accurate that the variables’ effects are 0. In this case, it is telling us there is 0.00% of this. 
-
-**The Prob (F-statistic) of 1.46e-32 tells us, there is 0% chance that any experimentally observed difference is due to chance alone.**
-
-This essentially translates to: an underlying causal relationship __*does*__ exist between the 3 independent variables used in the model and the dependent variable of % of wins.
+ 
+The Prob (F-statistic) of 1.46e-32 tells us, there is 0% chance that any experimentally observed difference is due to chance alone.
 
 
 ### Cond. No
 
-A condition number of 10-30 indicates multicollinearity, and a condition number above 30 indicates strong multicollinearity. 
+This summary report give a condition number of 3.65, well below 10, indicating there are no multicollinearity issues.
 
-**This summary report give a condition number of 3.65, well below 10, indicating there are no multicollinearity issues.**
-
-This is important because multicollinearity among independent variables will result in less reliable statistical inferences and making it hard to determine how the independent variables influence the dependent variable individually. 
 
 ## Limitations
 There are 2 limitations in this current model:
@@ -543,14 +292,14 @@ There are 2 limitations in this current model:
 A teams combined RUNS has the most significant impact on their win percentage over a regular season, followed by STRIKEOUTS, then WALKS. 
 
 Below are the direct interpretations from the statsmodel summary report, (because the data was scaled the coeffients are in each feature's standard deviation):
-- For every 117.75 runs, a teams regular season win percentage increases, on average, by ~5.78%
-- For every 152.97 walks, a teams regular season win percentage increases, on average, by ~2.43%
-- For every 93.45 strikeout, a teams regular season win percentage _**decreases**_, on average, by ~1.83%
+- **For every 117.75 runs, a teams regular season win percentage increases, on average, by ~5.78%**
+- **For every 152.97 walks, a teams regular season win percentage increases, on average, by ~2.43%**
+- **For every 93.45 strikeout, a teams regular season win percentage _decreases_, on average, by ~1.83%**
 
 Converted to more standardized variables:
-- For every 1 run, a teams regular season win percentage increases, on average, by ~0.0491%
-- For every 1 walk, a teams regular season win percentage increases, on average, by ~0.0159%
-- For every 1 strikeout, a teams regular season win percentage _**decreases**_, on average, by ~0.0195%
+- **For every 1 run, a teams regular season win percentage increases, on average, by ~0.0491%**
+- **For every 1 walk, a teams regular season win percentage increases, on average, by ~0.0159%**
+- **For every 1 strikeout, a teams regular season win percentage _decreases_, on average, by ~0.0195%**
 
 The specificity of the coefficient translation can be helpful when comparing or narrowing down potential recruits. Additionally, with a root mean squared error of just 5.8, this model is, on average, off by only ~5.8% in it's predictions. This shows that the predictive capabilities could prove to be useful for testing/comparing fantasy/hypothetical rosters in order to gain insight in how a team as a whole will perform throughout the regular season.
 
