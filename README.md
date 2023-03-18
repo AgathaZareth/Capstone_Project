@@ -257,9 +257,9 @@ To put these win % predictions into perspective, I created a dataframe with worl
 </p>
 
 
-### P Values and confidence intervals
+### P Values 
 
-To determine if an observed outcome is statistically significant, we look at the P values; in this case they are all below .05 indicating that there **_is_** a relationship between the associated coefficient and a teams percentage of wins in their regular season games. We also see all confidence intervals do not span zero, which would indicate an uncertainty of having either a positive or negative correlation.
+To determine if an observed outcome is statistically significant, we look at the P values; in this case they are all below .05 indicating that there **_is_** a relationship between the associated coefficient and a teams percentage of wins in their regular season games. 
 
 ### R squared
 
