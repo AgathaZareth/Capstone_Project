@@ -82,7 +82,7 @@ Collegiate Division-1 Player Stats - [TheBaseballCube.com](https://thebaseballcu
 
 The baseline model takes in the most correlated feature with `win %`. Final model was created by iteratively adding features based on the features p value.
 
-Small print outs of the following are printed for each:
+Each model has a small printout of the following:
 
 - histogram of distribution of residuals
 - QQ plot
