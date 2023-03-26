@@ -14,7 +14,9 @@ Drafting New Talent for SF Giants 2023 Season
 
 We are all familiar with the idiom "greater than the sum of its parts" and baseball teams are no exception. Intuitively, it makes sense that the performance of a team as a whole is more important than individual players themselves, but what specifically makes up the magic sauce that leads to a team's winning performance?
 
-This collection of notebooks provides an understanding of how a team's cumulative statistics influence the percentage of wins in their regular season games. I will provide 3 statistics that are the most predictive of increasing or decreasing this win percentage. By knowing which individual player stats are most indicative of team performance, we can look for players in minor and collegiate leagues who will have the greatest positive impact on the teams win percentage, and test how a roster update will alter the projected win percentage compared to the current 2023 roster. 
+This collection of notebooks provides an understanding of how a team's cumulative statistics influence the percentage of wins in their regular season games. The final model provides 3 statistics that are the most predictive of increasing or decreasing this win percentage, it explains 72.7% of the variability observed in regular season percentage of wins, and on average is off by 5.81%. 
+
+By knowing which individual player stats are most indicative of team performance, we can look for players in minor and collegiate leagues who will have the greatest positive impact on the teams win percentage, and test how a roster update will alter the projected win percentage compared to the current 2023 roster. 
 
 
 # Business Understanding
